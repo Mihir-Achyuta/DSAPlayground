@@ -3,31 +3,39 @@ const arg = require("arg");
 const axios = require("axios");
 
 //the cli function which checks if the arguments entered are correct and executes them on the trie if they are
-export async function cli(originalArguments) {
+export function cli(originalArguments) {
   //converts arguments and gets all the boolean flag values from options to error handle
   //Error Checks : is there a wrong command?, are there multiple allowed commands in 1 command statement?, is there a command entered?
   let options = convertArguments(originalArguments);
   let flagValues = Object.values(options);
+
+  //has the user entered a wrong command?
   if (options["error"]) {
     error("Error : Please enter an allowed command", true);
-  } else if (
+  }
+  //has the user entered multiple commands?
+  else if (
     flagValues.slice(0, flagValues.length - 1).filter((value) => value === true)
       .length > 1
   ) {
     error("Error : Please enter 1 allowed command at a time");
-  } else if (
+  }
+  //has the user entered no commands?
+  else if (
     flagValues.slice(0, flagValues.length - 1).every((value) => value === false)
   ) {
     helpCommands();
-  } else {
+  }
+  //if ONE correct command has been entered, we check if a word exists for the respective commands
+  else {
+    //gets the single command which the user entered along with a word if needed
     let command = Object.keys(options)
       .filter((value) => options[value] === true)
       .toString();
     let word = options["word"];
-    if (command === "display") {
-      //TODO display the trie
-      console.log(`Executing operation ${command}...`);
-    } else if (word) {
+
+    //Error Checks: If the command is not display, does it have a word specified?
+    if (command === "display" || word) {
       //TODO execute operation with word
       console.log(`Executing operation ${command}...`);
     } else {
@@ -37,7 +45,15 @@ export async function cli(originalArguments) {
 }
 
 //executes a specific operation on the trie and gets back the result
-async function trieOperation(command, word) {}
+async function trieOperation(command, word) {
+  if (command === "display") {
+    //TODO display words
+  } else if (word) {
+    //TODO do operation
+  } else {
+    //TODO throw error to cli since no word specified
+  }
+}
 
 //gets raw string arguments and turns them into an object with the form: command:toBeExecuted(true or false)?
 function convertArguments(originalArguments) {
@@ -62,6 +78,7 @@ function convertArguments(originalArguments) {
       word: args._[0],
     };
   } catch (err) {
+    //if an unallowed command is entered then we return an error:true to the cli
     return { error: true };
   }
 }
