@@ -15,12 +15,12 @@ app.post("/delete", function (req, res) {
   res.json({ deleted: true });
 });
 
-app.get("/search", function (req, res) {
+app.post("/search", function (req, res) {
   console.log("Searched");
   res.json({ searched: true });
 });
 
-app.get("/autocomplete", function (req, res) {
+app.post("/autocomplete", function (req, res) {
   console.log("Autocompleted words");
   res.json({ autocompleted: true });
 });

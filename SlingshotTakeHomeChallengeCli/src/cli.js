@@ -1,9 +1,10 @@
 //npm modules imported (I am using arg to process arguments)
 const arg = require("arg");
+const axios = require("axios");
 
 //the cli function which checks if the arguments entered are correct and executes them on the trie if they are
-export function cli(originalArguments) {
-  let options = convertArguements(originalArguments);
+export async function cli(originalArguments) {
+  let options = convertArguments(originalArguments);
   let flagValues = Object.values(options);
   if (options["error"]) {
     error("Error : Please enter an allowed command", true);
@@ -21,9 +22,9 @@ export function cli(originalArguments) {
       .filter((value) => options[value] === true)
       .toString();
     let word = options["word"];
-    if (command == "display") {
+    if (command === "display") {
       //TODO display the trie
-      console.log("Displaying Trie:");
+      console.log(`Executing operation ${command}...`);
     } else if (word) {
       //TODO execute operation with word
       console.log(`Executing operation ${command}...`);
@@ -33,8 +34,11 @@ export function cli(originalArguments) {
   }
 }
 
-//gets raw string arguements and turns them into an object with the form: command:toBeExecuted(true or false)?
-function convertArguements(originalArguments) {
+//executes a specific operation on the trie and gets back the result
+async function trieOperation(command, word) {}
+
+//gets raw string arguments and turns them into an object with the form: command:toBeExecuted(true or false)?
+function convertArguments(originalArguments) {
   try {
     const args = arg(
       {
@@ -60,7 +64,7 @@ function convertArguements(originalArguments) {
   }
 }
 
-//error function in case of any bad user input
+//error handler in case of any bad user input
 function error(message, includeHelpCommand = false) {
   console.error(message);
   if (includeHelpCommand) {
@@ -69,7 +73,7 @@ function error(message, includeHelpCommand = false) {
   }
 }
 
-//help function to help users navigate the cli  (ignored by prettier formatter for formatting reasons)
+//help docs to help users navigate the cli  (ignored by prettier formatter for formatting reasons)
 // prettier-ignore
 function helpCommands() {
   console.log("All Possible Commands For The Trie: ")
