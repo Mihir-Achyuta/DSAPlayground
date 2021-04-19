@@ -37,9 +37,11 @@ export function cli(originalArguments) {
     //Error Checks: If the command is not display, does it have a word specified?
     if (command === "display" || word) {
       //TODO execute operation with word
+      console.log("");
       console.log(`Executing operation ${command}...`);
+      trieOperation(command, word);
     } else {
-      error(`Please include a word with operation ${command}`);
+      error(`Error : Please include a word with operation ${command}`);
     }
   }
 }
@@ -47,11 +49,18 @@ export function cli(originalArguments) {
 //executes a specific operation on the trie and gets back the result
 async function trieOperation(command, word) {
   if (command === "display") {
-    //TODO display words
-  } else if (word) {
-    //TODO do operation
+    try {
+      let results = await axios.get(`http://localhost:3001/${command}`);
+      if (results["data"]["succeeded"]) {
+        console.log(`Trie Operation ${command} Succeeded`);
+        console.log(results["data"]["message"]);
+      }
+    } catch (err) {
+      error("Error : Was not able to connect to the server");
+    }
   } else {
-    //TODO throw error to cli since no word specified
+    //TODO do operation
+    console.log("post");
   }
 }
 
