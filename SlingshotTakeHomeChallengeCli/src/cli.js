@@ -59,8 +59,15 @@ async function trieOperation(command, word) {
       error("Error : Was not able to connect to the server");
     }
   } else {
-    //TODO do operation
-    console.log("post");
+    try {
+      let results = await axios.post(`http://localhost:3001/${command}`);
+      if (results["data"]["succeeded"]) {
+        console.log(`Trie Operation ${command} Succeeded`);
+        console.log(results["data"]["message"]);
+      }
+    } catch (err) {
+      error("Error : Was not able to connect to the server");
+    }
   }
 }
 
