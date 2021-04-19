@@ -1,4 +1,5 @@
 #!/usr/bin/env node
 
+//passes the cli raw arguments into the function
 require = require("esm")(module);
 require("../src/cli.js").cli(process.argv);
