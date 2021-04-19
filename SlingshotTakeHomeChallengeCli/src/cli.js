@@ -60,7 +60,9 @@ async function trieOperation(command, word) {
     }
   } else {
     try {
-      let results = await axios.post(`http://localhost:3001/${command}`);
+      let results = await axios.post(`http://localhost:3001/${command}`, {
+        specifiedWord: word,
+      });
       if (results["data"]["succeeded"]) {
         console.log(`Trie Operation ${command} Succeeded`);
         console.log(results["data"]["message"]);
