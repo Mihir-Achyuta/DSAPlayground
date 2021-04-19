@@ -4,6 +4,8 @@ const axios = require("axios");
 
 //the cli function which checks if the arguments entered are correct and executes them on the trie if they are
 export async function cli(originalArguments) {
+  //converts arguments and gets all the boolean flag values from options to error handle
+  //Error Checks : is there a wrong command?, are there multiple allowed commands in 1 command statement?, is there a command entered?
   let options = convertArguments(originalArguments);
   let flagValues = Object.values(options);
   if (options["error"]) {
@@ -76,11 +78,13 @@ function error(message, includeHelpCommand = false) {
 //help docs to help users navigate the cli  (ignored by prettier formatter for formatting reasons)
 // prettier-ignore
 function helpCommands() {
-  console.log("All Possible Commands For The Trie: ")
-  console.log("--add                    adds a word to the trie");
-  console.log("--delete                 deletes a word from the trie");
-  console.log("--search                 searches a trie for a word");
-  console.log("--autocomplete           gives a list of prefix included words in the trie given a prefix");
-  console.log("--display                prints the trie out");
+  console.log("");
+  console.log("Commands are done by --COMMAND WORD for all commands except display");
+  console.log("All Possible Commands For The Trie: ");
+  console.log("--add WORD                    adds a word to the trie");
+  console.log("--delete WORD                 deletes a word from the trie");
+  console.log("--search WORD                 searches a trie for a word");
+  console.log("--autocomplete WORD           gives a list of prefix included words in the trie given a prefix");
+  console.log("--display                     prints the trie out");
   console.log("");
 }
