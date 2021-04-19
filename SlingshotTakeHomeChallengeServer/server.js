@@ -16,17 +16,46 @@ app.post("/add", function (req, res) {
 });
 
 app.post("/delete", function (req, res) {
-  res.json({ succeeded: true, message: "Deleted from trie" });
+  let wordToDelete = req.body.specifiedWord;
+  res.json({
+    succeeded: true,
+    message: `Word ${wordToDelete} Deleted from trie`,
+  });
 });
 
 app.post("/search", function (req, res) {
-  res.json({ succeeded: true, message: "Searched from trie" });
+  let wordToFind = req.body.specifiedWord;
+  let wordFound = true;
+  res.json({
+    succeeded: true,
+    message: `Word ${wordToFind} is${
+      wordFound === false ? " not" : ""
+    } in trie`,
+  });
 });
 
 app.post("/autocomplete", function (req, res) {
-  res.json({ succeeded: true, message: "Autocompleted words from trie" });
+  let wordToAutocomplete = req.body.specifiedWord;
+  let autocompletedWords = "";
+  res.json({
+    succeeded: true,
+    message: `Prefix ${wordToAutocomplete} generated these words from the trie ${autocompletedWords}: `,
+  });
 });
 
 app.get("/display", function (req, res) {
-  res.json({ succeeded: true, message: "Displayed trie" });
+  let printedTrie = `
+  c a t
+      b
+    o r n
+    ut
+  `;
+
+  res.json({
+    succeeded: true,
+    message: `
+  Here is the printed trie
+  ${printedTrie}
+  `,
+  });
 });
