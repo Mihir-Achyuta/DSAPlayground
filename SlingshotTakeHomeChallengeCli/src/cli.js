@@ -1,5 +1,7 @@
+//npm modules imported (I am using arg to process arguments)
 const arg = require("arg");
 
+//the cli function which checks if the arguments entered are correct and executes them on the trie if they are
 export function cli(originalArguments) {
   let options = convertArguements(originalArguments);
   let flagValues = Object.values(options);
@@ -15,10 +17,23 @@ export function cli(originalArguments) {
   ) {
     helpCommands();
   } else {
-    console.log("Allowed Prompt");
+    let command = Object.keys(options)
+      .filter((value) => options[value] === true)
+      .toString();
+    let word = options["word"];
+    if (command == "display") {
+      //TODO display the trie
+      console.log("Displaying Trie:");
+    } else if (word) {
+      //TODO execute operation with word
+      console.log(`Executing operation ${command}...`);
+    } else {
+      error(`Please include a word with operation ${command}`);
+    }
   }
 }
 
+//gets raw string arguements and turns them into an object with the form: command:toBeExecuted(true or false)?
 function convertArguements(originalArguments) {
   try {
     const args = arg(
@@ -35,9 +50,9 @@ function convertArguements(originalArguments) {
     return {
       add: args["--add"] || false,
       delete: args["--delete"] || false,
-      search: args["search"] || false,
-      autocomplete: args["autocomplete"] || false,
-      display: args["display"] || false,
+      search: args["--search"] || false,
+      autocomplete: args["--autocomplete"] || false,
+      display: args["--display"] || false,
       word: args._[0],
     };
   } catch (err) {
