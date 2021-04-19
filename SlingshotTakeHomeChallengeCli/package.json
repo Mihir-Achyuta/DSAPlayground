@@ -2,13 +2,21 @@
   "name": "slingshottakehomechallengecli",
   "version": "1.0.0",
   "description": "The cli for slingshot take home challenge trie",
-  "main": "index.js",
+  "main": "src/cli.js",
+  "bin": {
+    "slingshottakehomechallengecli": "bin/CliScript"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "keywords": [
+    "cli",
+    "CliScript"
+  ],
   "author": "Mihir Achyuta",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.21.1"
+    "axios": "^0.21.1",
+    "esm": "^3.2.25"
   }
 }
