@@ -2,8 +2,18 @@ const arg = require("arg");
 
 export function cli(originalArguments) {
   let options = convertArguements(originalArguments);
+  let flagValues = Object.values(options);
   if (options["error"]) {
     error("Error : Please enter an allowed command", true);
+  } else if (
+    flagValues.slice(0, flagValues.length - 1).filter((value) => value === true)
+      .length > 1
+  ) {
+    error("Error : Please enter 1 allowed command at a time");
+  } else if (
+    flagValues.slice(0, flagValues.length - 1).every((value) => value === false)
+  ) {
+    helpCommands();
   } else {
     console.log("Allowed Prompt");
   }
