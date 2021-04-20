@@ -1,6 +1,9 @@
 const express = require("express");
 const cors = require("cors");
+const fs = require("fs");
 const app = express();
+
+let trieData = JSON.parse(fs.readFileSync("trieDB.json"));
 
 app.use(cors());
 app.use(express.json());
@@ -12,6 +15,8 @@ app.listen(3001, function () {
 
 app.post("/add", function (req, res) {
   let wordToAdd = req.body.specifiedWord;
+  trieData.push(wordToAdd);
+  fs.writeFileSync("trieDB.json", JSON.stringify(trieData));
   res.json({ succeeded: true, message: `Word ${wordToAdd} Added to trie` });
 });
 
@@ -59,3 +64,6 @@ app.get("/display", function (req, res) {
   `,
   });
 });
+
+//sample curl requests
+//curl -X POST -d "specifiedWord=word" -w "\n"  http://localhost:3001/add && curl -X GET http://localhost:3001/display
