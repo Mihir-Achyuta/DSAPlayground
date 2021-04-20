@@ -27,7 +27,20 @@ class Trie {
     }
   }
   delete(word) {}
-  search(word) {}
+  search(word) {
+    let currNode = this.rootNode;
+    let found = true;
+    for (let i of word) {
+      if (!currNode["children"][i]) {
+        found = false;
+        break;
+      }
+      currNode = currNode["children"][i];
+    }
+    console.log(
+      `The word ${word} is ${found ? "found" : "not found"} in the trie`
+    );
+  }
   autocomplete(word) {}
   display() {}
 }
@@ -36,3 +49,4 @@ let trie = new Trie();
 trie.add("cat");
 trie.add("car");
 trie.add("corn");
+trie.search("corny");
