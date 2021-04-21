@@ -25,12 +25,15 @@ class Trie {
       }
       currNode = currNode["children"][i];
     }
+    console.log(`The word ${word} has been added in the trie`);
   }
   delete(word) {}
   search(word) {
     let currNode = this.rootNode;
     let found = true;
     for (let i of word) {
+      //if there is no children for the ith letter :
+      //the word does not exist in the trie so we exit out of the loop
       if (!currNode["children"][i]) {
         found = false;
         break;
@@ -43,10 +46,15 @@ class Trie {
   }
   autocomplete(word) {}
   display() {}
+  reset() {
+    //resets the trie by setting the parent to the original null root node
+    this.rootNode = new TrieNode(null);
+    console.log("The trie has been cleared and resetted");
+  }
 }
 
 let trie = new Trie();
 trie.add("cat");
 trie.add("car");
 trie.add("corn");
-trie.search("corny");
+console.log(trie.rootNode);
