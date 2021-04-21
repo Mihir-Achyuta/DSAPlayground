@@ -62,7 +62,14 @@ class Trie {
 
   autocomplete(word) {}
 
-  display() {}
+  display(currNode, string = "") {
+    let nodeChildren = Object.keys(currNode["children"]);
+
+    if (currNode["wordEnd"]) console.log(string);
+    for (let i of nodeChildren) {
+      this.display(currNode["children"][i], string + i);
+    }
+  }
 
   reset() {
     //resets the trie by setting the parent to the original null root node
@@ -77,5 +84,5 @@ trie.add("car");
 trie.add("corn");
 trie.add("cob");
 trie.add("cats");
-trie.search("catss");
+trie.display(trie.rootNode);
 console.log(JSON.stringify(trie.rootNode));
