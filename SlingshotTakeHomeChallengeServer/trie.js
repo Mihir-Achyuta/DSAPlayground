@@ -1,4 +1,5 @@
 const fs = require("fs");
+const colorize = require("json-colorizer");
 const trieData = JSON.parse(fs.readFileSync("trieDB.json"));
 
 class TrieNode {
@@ -31,6 +32,7 @@ class Trie {
     }
     currNode["wordEnd"] = true;
     console.log(`The word ${word} has been added in the trie`);
+    console.log("");
   }
 
   delete(word) {}
@@ -58,23 +60,42 @@ class Trie {
     console.log(
       `The word ${word} is ${found ? "found" : "not found"} in the trie`
     );
+    console.log("");
   }
 
   autocomplete(word) {}
 
-  display(currNode, string = "") {
+  //the display method first shows all the words in the trie and then shows the structure of the trie in JSON
+  display(rootNode) {
+    console.log("Displaying Trie Words: ");
+    this.displayWords(rootNode);
+    console.log("");
+
+    console.log("Displaying Trie Structure: ");
+    this.displayStructure(rootNode);
+    console.log("");
+  }
+
+  //does a search similar to a dfs pre order way
+  displayWords(currNode, string = "") {
     let nodeChildren = Object.keys(currNode["children"]);
 
     if (currNode["wordEnd"]) console.log(string);
     for (let i of nodeChildren) {
-      this.display(currNode["children"][i], string + i);
+      this.displayWords(currNode["children"][i], string + i);
     }
+  }
+
+  //puts the json in a string and then pretty prints it with colors in the console
+  displayStructure() {
+    console.log(colorize(JSON.stringify(this.rootNode), { pretty: true }));
   }
 
   reset() {
     //resets the trie by setting the parent to the original null root node
     this.rootNode = new TrieNode(null);
     console.log("The trie has been cleared and resetted");
+    console.log("");
   }
 }
 
@@ -84,5 +105,6 @@ trie.add("car");
 trie.add("corn");
 trie.add("cob");
 trie.add("cats");
+trie.add("app");
 trie.display(trie.rootNode);
-console.log(JSON.stringify(trie.rootNode));
+// console.log(JSON.stringify(trie.rootNode));
