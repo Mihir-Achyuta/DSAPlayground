@@ -12,7 +12,7 @@ class TrieNode {
 
 class Trie {
   constructor() {
-    this.rootNode = new TrieNode(null);
+    this.rootNode = trieData;
   }
 
   //this add method adds words to the trie and allows for multiple words of the same prefix to be considered as words as needed
@@ -31,12 +31,14 @@ class Trie {
       currNode = currNode["children"][i];
     }
     currNode["wordEnd"] = true;
+    //save the updated trie node in json database
+    fs.writeFileSync("trieDB.json", JSON.stringify(this.rootNode));
+
     console.log(`The word ${word} has been added in the trie`);
     console.log("");
   }
 
   delete(word) {
-    let currNode = this.rootNode;
     if (this.search(word)) {
       console.log("Can be deleted");
     } else {
@@ -71,7 +73,8 @@ class Trie {
     return found;
   }
 
-  //this autocomplete method shows all the words in the trie given a prefix
+  //this autocomplete method shows all the PREFIXED words in the trie given a prefix
+  //a prefix is a word inside a word so "c" and "cat" and "cats" are prefixes of cats
   autocomplete(prefix) {
     let currNode = this.rootNode;
     let found = true;
@@ -84,7 +87,10 @@ class Trie {
       currNode = currNode["children"][i];
     }
     if (found) {
+      console.log("Here are the words with the prefix: ");
       this.displayWords(currNode, prefix);
+    } else {
+      console.group("Cant find prefix");
     }
     return found;
   }
@@ -124,12 +130,12 @@ class Trie {
 }
 
 let trie = new Trie();
-trie.add("cat");
-trie.add("car");
-trie.add("corn");
-trie.add("cob");
-trie.add("cats");
-trie.add("app");
-trie.autocomplete("app");
+console.log(trieData);
+// trie.add("cat");
+// trie.add("car");
+// trie.add("corn");
+// trie.add("cob");
+// trie.add("cats");
+// trie.add("app");
+// trie.autocomplete("app");
 // trie.display(trie.rootNode);
-// console.log(JSON.stringify(trie.rootNode));
