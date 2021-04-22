@@ -45,9 +45,42 @@ class Trie {
   //OR
   //We could easily delete every word by setting the wordEnd(if it exists) of last letter to false however the deleted nodes still appear in memory
   delete(word) {
-    let ownBranch = false;
+    let ownBranch = true;
     let isPrefix = false;
     let hasPrefix = false;
+    let currNode = this.rootNode;
+
+    for (let i of word) {
+      //1. if child does not exist then we can't delete
+      if (!currNode["children"][i]) {
+        return false;
+      }
+      //2. if the node is not the null node, we check if it has only 1 child to see if it is an only branch
+      if (currNode["letter"]) {
+        let childrenKeys = Object.keys(currNode["children"]);
+        if (childrenKeys.length > 1) {
+          ownBranch = false;
+        }
+      }
+      //4. if the node has a word end before the last letter then it has a prefix of another word in it
+      if (currNode["wordEnd"]) {
+        hasPrefix = true;
+      }
+      currNode = currNode["children"][i];
+    }
+    //3. We check the last node to see if it has children => if it does then it is a prefix
+    if (Object.keys(currNode["children"]).length > 0) {
+      isPrefix = true;
+    }
+    //We need to see that we actually delete a word and not a prefix
+    if (!currNode["wordEnd"]) {
+      return false;
+    }
+
+    //now depending on edge case properties we delete
+    //delete in order of isPrefix => hasPrefix => ownBranch => regular Case (we dont want to delete all nodes if there are multiple words on 1 branch)
+
+    console.log({ ownBranch, isPrefix, hasPrefix });
   }
 
   //an easy delete function that just marks the wordEnd to false(assuming the word exists) however deleted nodes in memory
@@ -149,5 +182,8 @@ class Trie {
     fs.writeFileSync("trieDB.json", JSON.stringify(this.rootNode));
   }
 }
+
+let trie = new Trie();
+trie.delete("testing");
 
 module.exports.Trie = Trie;
