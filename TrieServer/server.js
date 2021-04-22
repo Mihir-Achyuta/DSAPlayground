@@ -14,12 +14,14 @@ app.listen(3001, function () {
 
 app.post("/add", function (req, res) {
   let wordToAdd = req.body.specifiedWord;
+
   trie.add(wordToAdd);
   res.json({ succeeded: true, message: `Word ${wordToAdd} Added to trie` });
 });
 
 app.post("/delete", function (req, res) {
   let wordToDelete = req.body.specifiedWord;
+
   res.json({
     succeeded: true,
     message: `Word ${wordToDelete} Deleted from trie`,
@@ -28,7 +30,8 @@ app.post("/delete", function (req, res) {
 
 app.post("/search", function (req, res) {
   let wordToFind = req.body.specifiedWord;
-  let wordFound = true;
+  let wordFound = trie.search(wordToFind);
+
   res.json({
     succeeded: true,
     message: `Word ${wordToFind} is${
@@ -40,6 +43,7 @@ app.post("/search", function (req, res) {
 app.post("/autocomplete", function (req, res) {
   let wordToAutocomplete = req.body.specifiedWord;
   let autocompletedWords = "";
+
   res.json({
     succeeded: true,
     message: `Prefix ${wordToAutocomplete} generated these words from the trie ${autocompletedWords}: `,
@@ -48,6 +52,7 @@ app.post("/autocomplete", function (req, res) {
 
 app.get("/reset", function (req, res) {
   trie.reset();
+
   res.json({
     succeeded: true,
     message: `The trie has been cleared and resetted `,
