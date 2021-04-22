@@ -35,9 +35,6 @@ class Trie {
     currNode["wordEnd"] = true;
     //save the updated trie node in json database
     fs.writeFileSync("trieDB.json", JSON.stringify(this.rootNode));
-
-    console.log(`The word ${word} has been added in the trie`);
-    console.log("");
   }
 
   delete(word) {
@@ -67,11 +64,6 @@ class Trie {
     //if we do have a possible word, we need to check if the word is an actual defined word instead of a prefix (no false positives)
     //if you search for "ca" in "cats" trie, it returns false as "ca" is not a word even though the letters are defined in "cats"
     if (found) found = currNode["wordEnd"];
-
-    console.log(
-      `The word ${word} is ${found ? "found" : "not found"} in the trie`
-    );
-    console.log("");
     return found;
   }
 
@@ -90,12 +82,8 @@ class Trie {
       currNode = currNode["children"][i];
     }
     if (found) {
-      console.log("Here are the words with the prefix: ");
       this.displayWords(currNode, prefix);
-    } else {
-      console.log("Cant find prefix");
     }
-
     return { found: found, words: this.words };
   }
 
@@ -134,9 +122,6 @@ class Trie {
     this.rootNode = new TrieNode(null);
     //save the updated trie node in json database
     fs.writeFileSync("trieDB.json", JSON.stringify(this.rootNode));
-
-    console.log("The trie has been cleared and resetted");
-    console.log("");
   }
 }
 
