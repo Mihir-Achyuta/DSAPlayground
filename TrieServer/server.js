@@ -60,19 +60,10 @@ app.get("/reset", function (req, res) {
 });
 
 app.get("/display", function (req, res) {
-  let printedTrie = `
-  c a t
-      b
-    o r n
-    ut
-  `;
-
+  let { words, structure } = trie.display();
   res.json({
     succeeded: true,
-    message: `
-  Here is the printed trie
-  ${printedTrie}
-  `,
+    message: `Here are the printed trie words : ${words}\n Here is the trie structure:${structure}`,
   });
 });
 
