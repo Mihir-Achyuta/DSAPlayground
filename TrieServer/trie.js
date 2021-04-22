@@ -13,6 +13,8 @@ class TrieNode {
 class Trie {
   constructor() {
     this.rootNode = trieData;
+    this.words = "";
+    this.structure = {};
   }
 
   //this add method adds words to the trie and allows for multiple words of the same prefix to be considered as words as needed
@@ -90,27 +92,27 @@ class Trie {
       console.log("Here are the words with the prefix: ");
       this.displayWords(currNode, prefix);
     } else {
-      console.group("Cant find prefix");
+      console.log("Cant find prefix");
     }
     return found;
   }
 
-  //the display method first shows all the words in the trie and then shows the structure of the trie in JSON
-  display(rootNode) {
-    console.log("Displaying Trie Words: ");
-    this.displayWords(rootNode);
-    console.log("");
+  //the display method first gets all the words in the trie and then gets the structure of the trie in JSON
+  //i defined global variables for words and structure to easily and efficiently update the variables every recursive call
+  display() {
+    this.displayWords(trie.rootNode);
+    this.displayStructure();
 
-    console.log("Displaying Trie Structure: ");
-    this.displayStructure(rootNode);
-    console.log("");
+    return { words: this.words, structure: this.structure };
   }
 
   //does a search similar to a dfs pre order way
   displayWords(currNode, string = "") {
     let nodeChildren = Object.keys(currNode["children"]);
 
-    if (currNode["wordEnd"]) console.log(string);
+    if (currNode["wordEnd"]) {
+      this.words += " " + string;
+    }
     for (let i of nodeChildren) {
       this.displayWords(currNode["children"][i], string + i);
     }
@@ -118,7 +120,9 @@ class Trie {
 
   //puts the json in a string and then pretty prints it with colors in the console
   displayStructure() {
-    console.log(colorize(JSON.stringify(this.rootNode), { pretty: true }));
+    this.structure = colorize(JSON.stringify(this.rootNode), {
+      pretty: true,
+    });
   }
 
   reset() {
@@ -131,5 +135,8 @@ class Trie {
     console.log("");
   }
 }
+
+let trie = new Trie();
+trie.display();
 
 module.exports.Trie = Trie;
