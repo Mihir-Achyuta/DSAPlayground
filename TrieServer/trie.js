@@ -80,6 +80,7 @@ class Trie {
   autocomplete(prefix) {
     let currNode = this.rootNode;
     let found = true;
+    this.words = "";
 
     for (let i of prefix) {
       if (!currNode["children"][i]) {
@@ -101,6 +102,8 @@ class Trie {
   //the display method first gets all the words in the trie and then gets the structure of the trie in JSON
   //i defined global variables for words and structure to easily and efficiently update the variables every recursive call
   display() {
+    this.words = "";
+    this.structure = {};
     this.displayWords(this.rootNode);
     this.displayStructure();
 
