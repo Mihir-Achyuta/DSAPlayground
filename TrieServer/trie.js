@@ -37,11 +37,36 @@ class Trie {
     fs.writeFileSync("trieDB.json", JSON.stringify(this.rootNode));
   }
 
+  //there are a couple of edge cases to delete from a trie
+  //1. The word is not in the trie => we dont do anything to trie and return true
+  //2. The word is its own branch in the trie(has no children aside from the default word and is not a child of any nodes) => delete all the nodes from that branch
+  //3. The word is a prefix of another word in the trie(deleting all the nodes there would delete the other word) => set the prefix wordend to false
+  //4. The word has a prefix of another word in the trie => delete all words after the prefix
+  //OR
+  //We could easily delete every word by setting the wordEnd(if it exists) of last letter to false however the deleted nodes still appear in memory
   delete(word) {
-    if (this.search(word)) {
-      console.log("Can be deleted");
+    let ownBranch = false;
+    let isPrefix = false;
+    let hasPrefix = false;
+  }
+
+  //an easy delete function that just marks the wordEnd to false(assuming the word exists) however deleted nodes in memory
+  easyDelete(word) {
+    let currNode = this.rootNode;
+
+    for (let i of word) {
+      if (!currNode["children"][i]) {
+        return false;
+      }
+      currNode = currNode["children"][i];
+    }
+    if (currNode["wordEnd"]) {
+      currNode["wordEnd"] = false;
+      //save the updated trie node in json database
+      fs.writeFileSync("trieDB.json", JSON.stringify(this.rootNode));
+      return true;
     } else {
-      console.log("Can't be deleted");
+      return false;
     }
   }
 
@@ -117,8 +142,8 @@ class Trie {
     });
   }
 
+  //resets the trie by setting the parent to the original null root node
   reset() {
-    //resets the trie by setting the parent to the original null root node
     this.rootNode = new TrieNode(null);
     //save the updated trie node in json database
     fs.writeFileSync("trieDB.json", JSON.stringify(this.rootNode));
