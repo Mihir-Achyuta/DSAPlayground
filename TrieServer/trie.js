@@ -94,7 +94,8 @@ class Trie {
     } else {
       console.log("Cant find prefix");
     }
-    return found;
+
+    return { found: found, words: this.words };
   }
 
   //the display method first gets all the words in the trie and then gets the structure of the trie in JSON

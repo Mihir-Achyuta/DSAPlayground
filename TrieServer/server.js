@@ -42,11 +42,23 @@ app.post("/search", function (req, res) {
 
 app.post("/autocomplete", function (req, res) {
   let wordToAutocomplete = req.body.specifiedWord;
-  let autocompletedWords = "";
+  let { found, words } = trie.autocomplete(wordToAutocomplete);
+  let message = found
+    ? `Prefix ${wordToAutocomplete} generated these words from the trie: ${words} `
+    : `Prefix ${wordToAutocomplete} generated no words from the trie`;
 
   res.json({
     succeeded: true,
-    message: `Prefix ${wordToAutocomplete} generated these words from the trie ${autocompletedWords}: `,
+    message: message,
+  });
+});
+
+app.get("/display", function (req, res) {
+  let { words, structure } = trie.display();
+
+  res.json({
+    succeeded: true,
+    message: `Here are the printed trie words : ${words}\nHere is the trie structure:\n ${structure}`,
   });
 });
 
@@ -59,13 +71,5 @@ app.get("/reset", function (req, res) {
   });
 });
 
-app.get("/display", function (req, res) {
-  let { words, structure } = trie.display();
-  res.json({
-    succeeded: true,
-    message: `Here are the printed trie words : ${words}\n Here is the trie structure:${structure}`,
-  });
-});
-
 //sample curl requests
-//curl -X POST -d "specifiedWord=word" -w "\n"  http://localhost:3001/add && curl -X GET http://localhost:3001/display
+//curl -X POST -d "specifiedWord=word" -w "\n"  http://localhost:3001/autocomplete && curl -X GET http://localhost:3001/display

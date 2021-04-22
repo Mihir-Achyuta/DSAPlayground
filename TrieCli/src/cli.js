@@ -55,6 +55,7 @@ function trieOperation(command, word) {
       .then(function (results) {
         if (results["data"]["succeeded"]) {
           console.log(`Trie Operation ${command} Succeeded`);
+          console.log("");
           console.log(results["data"]["message"]);
         }
       })
@@ -69,6 +70,7 @@ function trieOperation(command, word) {
       .then(function (results) {
         if (results["data"]["succeeded"]) {
           console.log(`Trie Operation ${command} Succeeded`);
+          console.log("");
           console.log(results["data"]["message"]);
         }
       })
