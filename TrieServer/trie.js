@@ -35,7 +35,14 @@ class Trie {
     console.log("");
   }
 
-  delete(word) {}
+  delete(word) {
+    let currNode = this.rootNode;
+    if (this.search(word)) {
+      console.log("Can be deleted");
+    } else {
+      console.log("Can't be deleted");
+    }
+  }
 
   //the search method allows the user to see if a WORD is in the trie not a prefix
   //if "pasta" is in the trie then the method returns true if "pasta" was searched but false if "pas" was searched
@@ -61,9 +68,26 @@ class Trie {
       `The word ${word} is ${found ? "found" : "not found"} in the trie`
     );
     console.log("");
+    return found;
   }
 
-  autocomplete(word) {}
+  //this autocomplete method shows all the words in the trie given a prefix
+  autocomplete(prefix) {
+    let currNode = this.rootNode;
+    let found = true;
+
+    for (let i of prefix) {
+      if (!currNode["children"][i]) {
+        found = false;
+        break;
+      }
+      currNode = currNode["children"][i];
+    }
+    if (found) {
+      this.displayWords(currNode, prefix);
+    }
+    return found;
+  }
 
   //the display method first shows all the words in the trie and then shows the structure of the trie in JSON
   display(rootNode) {
@@ -106,5 +130,6 @@ trie.add("corn");
 trie.add("cob");
 trie.add("cats");
 trie.add("app");
-trie.display(trie.rootNode);
+trie.autocomplete("app");
+// trie.display(trie.rootNode);
 // console.log(JSON.stringify(trie.rootNode));
