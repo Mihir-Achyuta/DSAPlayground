@@ -132,12 +132,4 @@ class Trie {
   }
 }
 
-let trie = new Trie();
-// trie.add("cat");
-// trie.add("car");
-// trie.add("corn");
-// trie.add("cob");
-// trie.add("cats");
-// trie.add("app");
-// trie.autocomplete("app");
-// trie.display(trie.rootNode);
+module.exports.Trie = Trie;

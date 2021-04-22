@@ -34,13 +34,14 @@ export function cli(originalArguments) {
       .toString();
     let word = options["word"];
 
-    //Error Checks: If the command is not display, does it have a word specified?
+    //Error Checks: If the command is not display or reset, does it have a word specified?
     if (command === "display" || command == "reset" || word) {
       //TODO execute operation with word
       console.log("");
       console.log(`Executing operation ${command}...`);
       trieOperation(command, word);
     } else {
+      console.log("");
       error(`Error : Please include a word with operation ${command}`);
     }
   }

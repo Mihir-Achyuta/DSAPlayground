@@ -1,6 +1,8 @@
 const express = require("express");
 const cors = require("cors");
+const { Trie } = require("./trie");
 const app = express();
+let trie = new Trie();
 
 app.use(cors());
 app.use(express.json());
@@ -12,6 +14,7 @@ app.listen(3001, function () {
 
 app.post("/add", function (req, res) {
   let wordToAdd = req.body.specifiedWord;
+  trie.add(wordToAdd);
   res.json({ succeeded: true, message: `Word ${wordToAdd} Added to trie` });
 });
 
@@ -44,6 +47,7 @@ app.post("/autocomplete", function (req, res) {
 });
 
 app.get("/reset", function (req, res) {
+  trie.reset();
   res.json({
     succeeded: true,
     message: `The trie has been cleared and resetted `,
