@@ -124,13 +124,15 @@ class Trie {
   reset() {
     //resets the trie by setting the parent to the original null root node
     this.rootNode = new TrieNode(null);
+    //save the updated trie node in json database
+    fs.writeFileSync("trieDB.json", JSON.stringify(this.rootNode));
+
     console.log("The trie has been cleared and resetted");
     console.log("");
   }
 }
 
 let trie = new Trie();
-console.log(trieData);
 // trie.add("cat");
 // trie.add("car");
 // trie.add("corn");
