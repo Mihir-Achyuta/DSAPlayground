@@ -35,7 +35,7 @@ export function cli(originalArguments) {
     let word = options["word"];
 
     //Error Checks: If the command is not display, does it have a word specified?
-    if (command === "display" || word) {
+    if (command === "display" || command == "reset" || word) {
       //TODO execute operation with word
       console.log("");
       console.log(`Executing operation ${command}...`);
@@ -48,7 +48,7 @@ export function cli(originalArguments) {
 
 //executes a specific operation on the trie and gets back the result
 function trieOperation(command, word) {
-  if (command === "display") {
+  if (command === "display" || command === "reset") {
     axios
       .get(`http://localhost:3001/${command}`)
       .then(function (results) {
@@ -87,6 +87,7 @@ function convertArguments(originalArguments) {
         "--search": Boolean,
         "--autocomplete": Boolean,
         "--display": Boolean,
+        "--reset": Boolean,
       },
       //the first 2 raw arguments are file paths we dont need so we take them off
       { argv: originalArguments.slice(2) }
@@ -97,6 +98,7 @@ function convertArguments(originalArguments) {
       search: args["--search"] || false,
       autocomplete: args["--autocomplete"] || false,
       display: args["--display"] || false,
+      reset: args["--reset"] || false,
       word: args._[0],
     };
   } catch (err) {
@@ -125,5 +127,6 @@ function helpCommands() {
   console.log("--search WORD                 searches a trie for a word");
   console.log("--autocomplete WORD           gives a list of prefix included words in the trie given a prefix");
   console.log("--display                     prints the trie out");
+  console.log("--reset                       removes all words from the trie and starts off with no nodes");
   console.log("");
 }

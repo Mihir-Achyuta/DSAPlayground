@@ -43,6 +43,13 @@ app.post("/autocomplete", function (req, res) {
   });
 });
 
+app.get("/reset", function (req, res) {
+  res.json({
+    succeeded: true,
+    message: `The trie has been cleared and resetted `,
+  });
+});
+
 app.get("/display", function (req, res) {
   let printedTrie = `
   c a t
