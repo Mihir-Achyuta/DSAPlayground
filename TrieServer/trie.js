@@ -83,8 +83,7 @@ class Trie {
     //if the word is a prefix we CANNOT delete any nodes even if it is its own branch or has a prefix since we will lose the other full word
     //so just make wordEnd false
     if (isPrefix) {
-      // this.easyDelete(word);
-      console.log("Make wordEnd false");
+      this.easyDelete(word);
     }
     //if the word is not a prefix and has a prefix then we must delete until the 2nd to last prefix even if it is on its own branch
     else if (hasPrefix) {
@@ -94,15 +93,16 @@ class Trie {
     }
     //if the word has no prefixes at all and no branches then we just delete off the branch
     else if (ownBranch) {
-      console.log("Delete entire branch from root");
+      let firstChild = word.substring(0, 1);
+      delete this.rootNode["children"][firstChild];
+      fs.writeFileSync("trieDB.json", JSON.stringify(this.rootNode));
     }
     //if the word has multiple branches and is not/has no prefix then we go from the end and delete until the parent node has children
     //we dont want to delete any other children nodes aside from the one we are deleting
     else {
       console.log("Delete from end to node that has children");
     }
-    //save the updated trie node in json database
-    // fs.writeFileSync("trieDB.json", JSON.stringify(this.rootNode));
+    return true;
   }
 
   //an easy delete function that just marks the wordEnd to false(assuming the word exists) however deleted nodes in memory
@@ -204,8 +204,5 @@ class Trie {
     fs.writeFileSync("trieDB.json", JSON.stringify(this.rootNode));
   }
 }
-
-let trie = new Trie();
-trie.delete("testing");
 
 module.exports.Trie = Trie;
