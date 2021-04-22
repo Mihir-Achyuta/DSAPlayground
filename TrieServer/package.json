@@ -1,5 +1,5 @@
 {
-  "name": "slingshottakehomechallengeserver",
+  "name": "trieserver",
   "version": "1.0.0",
   "description": "Server for slingshot take home challenge for trie",
   "main": "server.js",
