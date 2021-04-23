@@ -8,7 +8,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.listen(3001, function () {
+app.listen(process.env.PORT || 3001, function () {
   console.log("Listening on Port 3001");
 });
 

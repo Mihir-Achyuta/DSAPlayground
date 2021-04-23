@@ -51,7 +51,7 @@ export function cli(originalArguments) {
 function trieOperation(command, word) {
   if (command === "display" || command === "reset") {
     axios
-      .get(`http://localhost:3001/${command}`)
+      .get(`https://triechallenge.herokuapp.com/${command}`)
       .then(function (results) {
         if (results["data"]["succeeded"]) {
           console.log(`Trie Operation ${command} Succeeded`);
@@ -64,7 +64,7 @@ function trieOperation(command, word) {
       });
   } else {
     axios
-      .post(`http://localhost:3001/${command}`, {
+      .post(`https://triechallenge.herokuapp.com/${command}`, {
         specifiedWord: word,
       })
       .then(function (results) {
