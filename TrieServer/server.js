@@ -12,6 +12,10 @@ app.listen(3001, function () {
   console.log("Listening on Port 3001");
 });
 
+app.get("/", function (req, res) {
+  res.send("Trie Server is working");
+});
+
 app.post("/add", function (req, res) {
   let wordToAdd = req.body.specifiedWord;
 
