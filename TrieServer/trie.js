@@ -41,13 +41,19 @@ class Trie {
   //1. The word is not in the trie => we dont do anything to trie and return true
   //2. The word is its own branch in the trie(has no children aside from the default word and is not a child of any nodes) => delete all the nodes from that branch
   //3. The word is a prefix of another word in the trie(deleting all the nodes there would delete the other word) => set the prefix wordend to false
-  //4. The word has a prefix of another word in the trie => delete all words after the prefix
+  //4. The word has a prefix of another word in the trie => delete all words after the prefix or after last known plural children node
   //OR
   //We could easily delete every word by setting the wordEnd(if it exists) of last letter to false however the deleted nodes still appear in memory
   delete(word) {
+    //variables to check special edge cases
     let ownBranch = true;
     let isPrefix = false;
     let hasPrefix = false;
+    let depth = 0;
+
+    //the last known plural children and prefix Nodes for case 4 and normal case
+    let lastPluralChildren = { depth: 0, word: word, node: null };
+    let lastPrefix = { depth: 0, word: word, node: null };
     let currNode = this.rootNode;
 
     for (let i of word) {
@@ -55,15 +61,20 @@ class Trie {
       if (!currNode["children"][i]) {
         return false;
       }
-      //2. if the node is not the null node, we check if it has only 1 child to see if it is an only branch
+      //2. if the node is not the null node, we check if it has only 1 child to see if it is an only branch and we increment depth by 1
       if (currNode["letter"]) {
+        depth++;
         let childrenKeys = Object.keys(currNode["children"]);
         if (childrenKeys.length > 1) {
           ownBranch = false;
+          lastPluralChildren["depth"] = depth;
+          lastPluralChildren["node"] = currNode;
         }
       }
       //4. if the node has a word end before the last letter then it has a prefix of another word in it
       if (currNode["wordEnd"]) {
+        lastPrefix["depth"] = depth;
+        lastPrefix["node"] = currNode;
         hasPrefix = true;
       }
       currNode = currNode["children"][i];
@@ -87,20 +98,28 @@ class Trie {
     }
     //if the word is not a prefix and has a prefix then we must delete until the 2nd to last prefix even if it is on its own branch
     else if (hasPrefix) {
-      console.log(
-        "Delete from end to last prefix or until a node with shared children occurs"
-      );
+      let mostDepth =
+        lastPluralChildren["depth"] > lastPrefix["depth"]
+          ? lastPluralChildren
+          : lastPrefix;
+      let removedChild = mostDepth["word"][mostDepth["depth"]];
+      delete mostDepth["node"]["children"][removedChild];
     }
     //if the word has no prefixes at all and no branches then we just delete off the branch
     else if (ownBranch) {
       let firstChild = word.substring(0, 1);
       delete this.rootNode["children"][firstChild];
-      fs.writeFileSync("trieDB.json", JSON.stringify(this.rootNode));
+      // fs.writeFileSync("trieDB.json", JSON.stringify(this.rootNode));
     }
     //if the word has multiple branches and is not/has no prefix then we go from the end and delete until the parent node has children
     //we dont want to delete any other children nodes aside from the one we are deleting
     else {
-      console.log("Delete from end to node that has children");
+      let mostDepth =
+        lastPluralChildren["depth"] > lastPrefix["depth"]
+          ? lastPluralChildren
+          : lastPrefix;
+      let removedChild = mostDepth["word"][mostDepth["depth"]];
+      delete mostDepth["node"]["children"][removedChild];
     }
     return true;
   }
@@ -205,4 +224,13 @@ class Trie {
   }
 }
 
+let trie = new Trie();
+trie.delete("testing");
+trie.delete("test");
+trie.delete("testio");
+console.log(
+  colorize(JSON.stringify(trie.rootNode), {
+    pretty: true,
+  })
+);
 module.exports.Trie = Trie;
