@@ -76,6 +76,3 @@ app.get("/reset", function (req, res) {
     message: `The trie has been cleared and resetted `,
   });
 });
-
-//sample curl requests
-//curl -X POST -d "specifiedWord=word" -w "\n"  http://localhost:3001/autocomplete && curl -X GET http://localhost:3001/display
