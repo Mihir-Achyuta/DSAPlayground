@@ -121,6 +121,8 @@ class Trie {
       let removedChild = mostDepth["word"][mostDepth["depth"]];
       delete mostDepth["node"]["children"][removedChild];
     }
+    //save the updated trie node in json database
+    fs.writeFileSync("trieDB.json", JSON.stringify(this.rootNode));
     return true;
   }
 
@@ -224,13 +226,4 @@ class Trie {
   }
 }
 
-let trie = new Trie();
-trie.delete("testing");
-trie.delete("test");
-trie.delete("testio");
-console.log(
-  colorize(JSON.stringify(trie.rootNode), {
-    pretty: true,
-  })
-);
 module.exports.Trie = Trie;

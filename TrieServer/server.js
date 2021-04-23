@@ -21,10 +21,12 @@ app.post("/add", function (req, res) {
 
 app.post("/delete", function (req, res) {
   let wordToDelete = req.body.specifiedWord;
-
+  let isDeleted = trie.delete(wordToDelete);
   res.json({
     succeeded: true,
-    message: `Word ${wordToDelete} Deleted from trie`,
+    message: isDeleted
+      ? `Word ${wordToDelete} Deleted from trie`
+      : `Word ${wordToDelete} was not found in the trie`,
   });
 });
 
@@ -58,7 +60,7 @@ app.get("/display", function (req, res) {
 
   res.json({
     succeeded: true,
-    message: `Here are the printed trie words : ${words}\nHere is the trie structure:\n ${structure}`,
+    message: `Here are the printed trie words:${words}\nHere is the trie structure:\n ${structure}`,
   });
 });
 
