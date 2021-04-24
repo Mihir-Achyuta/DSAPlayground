@@ -1,11 +1,11 @@
-//npm modules imported (I am using arg to process arguments)
+//npm modules imported to process arguments and call api requests
 const arg = require("arg");
 const axios = require("axios");
 
 //the cli function which checks if the arguments entered are correct and executes them on the trie if they are
 export function cli(originalArguments) {
   //converts arguments and gets all the boolean flag values from options to error handle
-  //Error Checks : is there a wrong command?, are there multiple allowed commands in 1 command statement?, is there a command entered?
+  //Error Checks: is there a wrong command?, are there multiple allowed commands in 1 command statement?, is there a command entered?
   let options = convertArguments(originalArguments);
   let flagValues = Object.values(options);
 
@@ -36,11 +36,12 @@ export function cli(originalArguments) {
 
     //Error Checks: If the command is not display or reset, does it have a word specified?
     if (command === "display" || command == "reset" || word) {
-      //TODO execute operation with word
+      //execute respective operation if requirements are met
       console.log("");
       console.log(`Executing operation ${command}...`);
       trieOperation(command, word);
     } else {
+      //if no word then send use an error
       console.log("");
       error(`Error : Please include a word with operation ${command}`);
     }
@@ -106,7 +107,7 @@ function convertArguments(originalArguments) {
     };
   } catch (err) {
     //if an unallowed command is entered then we return an error:true to the cli
-    return { error: true };
+    return { error: err };
   }
 }
 
