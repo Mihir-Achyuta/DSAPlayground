@@ -16,6 +16,24 @@ app.get("/", function (req, res) {
   res.send("Trie Server is working");
 });
 
+app.get("/display", function (req, res) {
+  let { words, structure } = trie.display();
+
+  res.json({
+    succeeded: true,
+    message: `Here are the printed trie words:${words}\nHere is the trie structure:\n ${structure}`,
+  });
+});
+
+app.get("/reset", function (req, res) {
+  trie.reset();
+
+  res.json({
+    succeeded: true,
+    message: `The trie has been cleared and resetted `,
+  });
+});
+
 app.post("/add", function (req, res) {
   let wordToAdd = req.body.specifiedWord;
 
@@ -56,23 +74,5 @@ app.post("/autocomplete", function (req, res) {
   res.json({
     succeeded: true,
     message: message,
-  });
-});
-
-app.get("/display", function (req, res) {
-  let { words, structure } = trie.display();
-
-  res.json({
-    succeeded: true,
-    message: `Here are the printed trie words:${words}\nHere is the trie structure:\n ${structure}`,
-  });
-});
-
-app.get("/reset", function (req, res) {
-  trie.reset();
-
-  res.json({
-    succeeded: true,
-    message: `The trie has been cleared and resetted `,
   });
 });
