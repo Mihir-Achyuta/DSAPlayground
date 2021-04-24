@@ -1,19 +1,23 @@
 # Trie Challenge
 
-This is the take home challenge for Slingshot's Fellowship Program
+- This is the take home challenge for Slingshot's Fellowship Program
 
 # Table of Contents
 
-The project is split into 2 parts :
+- The project is split into 2 parts :
 
-1. The Trie Client CLI
-2. The Trie Server
+1. - The Trie Client CLI
+2. - The Trie Server
 
 # CLI Installation
 
-The CLI was built with Node + Express and called API Requests with Axios
+**Notice: The server was hosted on a [Heroku](https://www.heroku.com) Free Dyno so it will take about 15 seconds to run the first command as the dyno has to [spin/wake up](https://devcenter.heroku.com/articles/free-dyno-hours). All other resultant commands will not have a delay like this.**
 
-Use the package manager [npm](https://www.npmjs.com/package/triecli) to install the Trie CLI Globally.
+- The CLI was built with [Node](http://www.node.com/) +[Express](https://expressjs.com/) and called RESTful API Requests with [Axios](https://www.npmjs.com/package/axios).
+
+- It was distributed through [npm](https://www.npmjs.com/package/triecli) for users to download via the install command
+
+- Use the package manager [npm](https://www.npmjs.com/package/triecli) to install the Trie CLI Globally.
 
 ```bash
 npm i -g triecli
@@ -28,10 +32,10 @@ triecli
 #adds a word to the trie
 triecli --add randword
 
-#deletes a word from the trie(if it is present)
+#deletes a word from the trie if it is present
 triecli --delete randword
 
-#checks if a word is in the trie
+#checks if a word is in the trie and lets user know result
 triecli --search randword
 
 #gets all the words in the trie starting with a prefix
@@ -40,7 +44,7 @@ triecli --autocomplete randword
 #displays all the words in the trie and the trie structure in JSON
 triecli --display
 
-#resets the trie to have no words
+#resets the trie to have no word along with the json database file
 triecli --reset
 ```
 
