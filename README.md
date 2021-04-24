@@ -24,6 +24,24 @@ npm i -g triecli
 ```bash
 # returns all the possible commands for the trie
 triecli
+
+#adds a word to the trie
+triecli --add randword
+
+#deletes a word from the trie(if it is present)
+triecli --delete randword
+
+#checks if a word is in the trie
+triecli --search randword
+
+#gets all the words in the trie starting with a prefix
+triecli --autocomplete randword
+
+#displays all the words in the trie and the trie structure in JSON
+triecli --display
+
+#resets the trie to have no words
+triecli --reset
 ```
 
 # Server

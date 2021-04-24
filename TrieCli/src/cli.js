@@ -123,7 +123,7 @@ function error(message, includeHelpCommand = false) {
 // prettier-ignore
 function helpCommands() {
   console.log("");
-  console.log("Commands are done by --COMMAND WORD for all commands except display");
+  console.log("Commands are done by --COMMAND WORD for all commands except display and reset");
   console.log("All Possible Commands For The Trie: ");
   console.log("--add WORD                    adds a word to the trie");
   console.log("--delete WORD                 deletes a word from the trie");
