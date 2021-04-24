@@ -5,9 +5,8 @@
 # Table of Contents
 
 - The project is split into 2 parts :
-
-1. - The Trie Client CLI
-2. - The Trie Server
+  - The Trie Client CLI
+  - The Trie Server
 
 # CLI Installation
 
@@ -44,7 +43,7 @@ triecli --autocomplete randword
 #displays all the words in the trie and the trie structure in JSON
 triecli --display
 
-#resets the trie to have no word along with the json database file
+#resets the trie to have no words along with the json database file
 triecli --reset
 ```
 
@@ -75,6 +74,6 @@ curl -X POST -d "specifiedWord=word" https://triechallenge.herokuapp.com/autocom
 #displays all the words in the trie and the trie structure in JSON
 curl -X GET https://triechallenge.herokuapp.com/display
 
-#resets the trie to have no words
+#resets the trie to have no words along with the json database file
 curl -X GET https://triechallenge.herokuapp.com/reset
 ```
