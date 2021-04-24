@@ -50,9 +50,12 @@ triecli --reset
 
 # Server
 
-The server was hosted using a Heroku free Dyno and the globally hosted trie was stored in JSON.
+- The server was hosted using a [Heroku free Dyno](https://devcenter.heroku.com/articles/free-dyno-hours) and the globally hosted trie was stored in a [JSON](https://www.json.org/) file.
 
-The CLI Interacts with it by calling an AJAX Request with axios to the RESTFUL Node + Express Server which then returned JSON
+- Every time an API request calls, the trie gets the root node from the [JSON](https://www.json.org/) file and updates/displays data accordingly.
+
+- The CLI Interacts with it by calling an [AJAX](<https://en.wikipedia.org/wiki/Ajax_(programming)>) Request with [Axios](https://www.npmjs.com/package/axios) to the RESTful [Node](http://www.node.com/) +[Express](https://expressjs.com/) which then returned JSON.
+  - The [JSON](https://www.json.org/) is then recieved by the request and it is console logged to the cli screen
 
 # Server REST Endpoints
 
