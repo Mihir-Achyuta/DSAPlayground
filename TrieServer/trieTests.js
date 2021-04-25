@@ -1,5 +1,6 @@
 //these tests will incorporate all 5 methods(add, delete, search, autocomplete, display) but gradually incorporate each one per test
 //these tests will be global and test the global state as preferred in the requirements
+//to run, cd into this directory and run node trieTests.js with the tests uncommented
 const axios = require("axios");
 
 //should expect 5 words to be added in the trie
@@ -291,4 +292,4 @@ async function executeTests() {
   // await addFiveAndDeleteTwoAndDisplay();
 }
 
-executeTests();
+// executeTests();
