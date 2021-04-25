@@ -30,16 +30,49 @@ async function addFiveAndGetFive() {
 }
 
 //should expect 4 words to be added in the trie
-function addFiveAndDeleteOne() {}
+async function addFiveAndDeleteOne() {
+  let wordArray = ["This", "is", "one", "nice", "test"];
+  let requestsSuceeded = true;
+
+  await resetTrie();
+  console.log("Test 2 Started");
+  for (let i of wordArray) {
+    try {
+      let results = await axios.post(
+        `https://triechallenge.herokuapp.com/add`,
+        {
+          specifiedWord: i,
+        }
+      );
+      console.log(results["data"]["message"]);
+    } catch (error) {
+      requestsSuceeded = false;
+    }
+  }
+
+  try {
+    let deleteResults = await axios.post(
+      `https://triechallenge.herokuapp.com/delete`,
+      { specifiedWord: "test" }
+    );
+    console.log(deleteResults["data"]["message"]);
+  } catch (error) {
+    requestsSuceeded = false;
+  }
+
+  console.log(`All 6 Requests Succeeded? ${requestsSuceeded}`);
+  console.log("Test 2 Ended");
+  console.log("");
+}
 
 //should expect 3 words to be added in the trie and the last added word to be found
-function addFiveAndDeleteTwoAndSearchTrue() {}
+async function addFiveAndDeleteTwoAndSearchTrue() {}
 
-function addFiveAndDeleteTwoAndSearchFalse() {}
+async function addFiveAndDeleteTwoAndSearchFalse() {}
 
-function addFiveAndDeleteTwoAndAuto() {}
+async function addFiveAndDeleteTwoAndAuto() {}
 
-function addFiveAndDeleteTwoAndDisplay() {}
+async function addFiveAndDeleteTwoAndDisplay() {}
 
 //resets trie as needed
 async function resetTrie() {
@@ -52,9 +85,15 @@ async function resetTrie() {
 }
 
 //uncomment each test as needed
-// addFiveAndGetFive();
-// addFiveAndDeleteOne();
-// addFiveAndDeleteTwoAndSearchTrue();
-// addFiveAndDeleteTwoAndSearchFalse();
-// addFiveAndDeleteTwoAndAuto();
-// addFiveAndDeleteTwoAndDisplay();
+//we must wait for each function to resolve its test hence the await keywords
+//we dont want all the tests executing asynchronously
+async function executeTests() {
+  await addFiveAndGetFive();
+  await addFiveAndDeleteOne();
+  // await addFiveAndDeleteTwoAndSearchTrue();
+  // await addFiveAndDeleteTwoAndSearchFalse();
+  // await addFiveAndDeleteTwoAndAuto();
+  // await addFiveAndDeleteTwoAndDisplay();
+}
+
+executeTests();

@@ -52,6 +52,7 @@ app.post("/add", function (req, res) {
 app.post("/delete", function (req, res) {
   let wordToDelete = req.body.specifiedWord;
   let isDeleted = trie.delete(wordToDelete);
+
   res.json({
     succeeded: true,
     message: isDeleted
