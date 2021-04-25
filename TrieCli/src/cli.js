@@ -3,7 +3,7 @@ const arg = require("arg");
 const axios = require("axios");
 
 //the cli function which checks if the arguments entered are correct and executes them on the trie if they are
-export function cli(originalArguments) {
+export async function cli(originalArguments) {
   //converts arguments and gets all the boolean flag values from options to error handle
   //Error Checks: is there a wrong command?, are there multiple allowed commands in 1 command statement?, is there a command entered?
   let options = convertArguments(originalArguments);
@@ -39,7 +39,7 @@ export function cli(originalArguments) {
       //execute respective operation if requirements are met
       console.log("");
       console.log(`Executing operation ${command}...`);
-      trieOperation(command, word);
+      await trieOperation(command, word);
     } else {
       //if no word then send use an error
       console.log("");
