@@ -49,35 +49,36 @@ export function cli(originalArguments) {
 }
 
 //executes a specific operation on the trie and gets back the result
-function trieOperation(command, word) {
+async function trieOperation(command, word) {
   if (command === "display" || command === "reset") {
-    axios
-      .get(`https://triechallenge.herokuapp.com/${command}`)
-      .then(function (results) {
-        if (results["data"]["succeeded"]) {
-          console.log(`Trie Operation ${command} Succeeded`);
-          console.log("");
-          console.log(results["data"]["message"]);
-        }
-      })
-      .catch(function (err) {
-        error("Error : Was not able to connect to the server");
-      });
+    try {
+      let results = await axios.get(
+        `https://triechallenge.herokuapp.com/${command}`
+      );
+      if (results["data"]["succeeded"]) {
+        console.log(`Trie Operation ${command} Succeeded`);
+        console.log("");
+        console.log(results["data"]["message"]);
+      }
+    } catch (err) {
+      error("Error : Was not able to connect to the server");
+    }
   } else {
-    axios
-      .post(`https://triechallenge.herokuapp.com/${command}`, {
-        specifiedWord: word,
-      })
-      .then(function (results) {
-        if (results["data"]["succeeded"]) {
-          console.log(`Trie Operation ${command} Succeeded`);
-          console.log("");
-          console.log(results["data"]["message"]);
+    try {
+      let results = await axios.post(
+        `https://triechallenge.herokuapp.com/${command}`,
+        {
+          specifiedWord: word,
         }
-      })
-      .catch(function (err) {
-        error("Error : Was not able to connect to the server");
-      });
+      );
+      if (results["data"]["succeeded"]) {
+        console.log(`Trie Operation ${command} Succeeded`);
+        console.log("");
+        console.log(results["data"]["message"]);
+      }
+    } catch (err) {
+      error("Error : Was not able to connect to the server");
+    }
   }
 }
 
