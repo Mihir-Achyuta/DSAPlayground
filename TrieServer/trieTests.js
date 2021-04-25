@@ -10,6 +10,7 @@ async function addFiveAndGetFive() {
 
   await resetTrie();
   console.log("Test 1 Started");
+  //adds all 5 words
   for (let i of wordArray) {
     try {
       let results = await axios.post(
@@ -36,6 +37,7 @@ async function addFiveAndDeleteOne() {
 
   await resetTrie();
   console.log("Test 2 Started");
+  //adds all 5 words
   for (let i of wordArray) {
     try {
       let results = await axios.post(
@@ -50,6 +52,7 @@ async function addFiveAndDeleteOne() {
     }
   }
 
+  //deletes last word
   try {
     let deleteResults = await axios.post(
       `https://triechallenge.herokuapp.com/delete`,
@@ -66,7 +69,65 @@ async function addFiveAndDeleteOne() {
 }
 
 //should expect 3 words to be added in the trie and the last added word to be found
-async function addFiveAndDeleteTwoAndSearchTrue() {}
+async function addFiveAndDeleteTwoAndSearchTrue() {
+  let wordArray = ["This", "is", "one", "nice", "test"];
+  let requestsSuceeded = true;
+
+  await resetTrie();
+  console.log("Test 3 Started");
+  //adds all 5 words
+  for (let i of wordArray) {
+    try {
+      let results = await axios.post(
+        `https://triechallenge.herokuapp.com/add`,
+        {
+          specifiedWord: i,
+        }
+      );
+      console.log(results["data"]["message"]);
+    } catch (error) {
+      requestsSuceeded = false;
+    }
+  }
+
+  //deletes first 2 words
+  for (let i = 0; i < 2; i++) {
+    try {
+      let results = await axios.post(
+        `https://triechallenge.herokuapp.com/delete`,
+        {
+          specifiedWord: wordArray[i],
+        }
+      );
+      console.log(results["data"]["message"]);
+      if (results["data"]["message"].includes("not found")) {
+        requestsSuceeded = false;
+      }
+    } catch (error) {
+      requestsSuceeded = false;
+    }
+  }
+
+  //checks if last word is in trie
+  try {
+    let results = await axios.post(
+      `https://triechallenge.herokuapp.com/search`,
+      {
+        specifiedWord: "test",
+      }
+    );
+    console.log(results["data"]["message"]);
+    if (results["data"]["message"].includes("not")) {
+      requestsSuceeded = false;
+    }
+  } catch (error) {
+    requestsSuceeded = false;
+  }
+
+  console.log(`All 8 Requests Succeeded? ${requestsSuceeded}`);
+  console.log("Test 3 Ended");
+  console.log("");
+}
 
 async function addFiveAndDeleteTwoAndSearchFalse() {}
 
@@ -88,9 +149,9 @@ async function resetTrie() {
 //we must wait for each function to resolve its test hence the await keywords
 //we dont want all the tests executing asynchronously
 async function executeTests() {
-  await addFiveAndGetFive();
-  await addFiveAndDeleteOne();
-  // await addFiveAndDeleteTwoAndSearchTrue();
+  // await addFiveAndGetFive();
+  // await addFiveAndDeleteOne();
+  await addFiveAndDeleteTwoAndSearchTrue();
   // await addFiveAndDeleteTwoAndSearchFalse();
   // await addFiveAndDeleteTwoAndAuto();
   // await addFiveAndDeleteTwoAndDisplay();
