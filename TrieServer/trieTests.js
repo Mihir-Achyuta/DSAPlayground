@@ -189,11 +189,53 @@ async function addFiveAndDeleteTwoAndSearchFalse() {
   console.log("");
 }
 
-async function addFiveAndDeleteTwoAndAuto() {}
+//should expect one of the added words to be autocompleted
+async function addFiveAndAndAuto() {
+  let wordArray = ["This", "is", "one", "nice", "test"];
+  let requestsSuceeded = true;
 
+  await resetTrie();
+  console.log("Test 5 Started");
+  //adds all 5 words
+  for (let i of wordArray) {
+    try {
+      let results = await axios.post(
+        `https://triechallenge.herokuapp.com/add`,
+        {
+          specifiedWord: i,
+        }
+      );
+      console.log(results["data"]["message"]);
+    } catch (error) {
+      requestsSuceeded = false;
+    }
+  }
+
+  //autocompletes an added word
+  try {
+    let results = await axios.post(
+      `https://triechallenge.herokuapp.com/autocomplete`,
+      {
+        specifiedWord: "n",
+      }
+    );
+    console.log(results["data"]["message"]);
+    if (results["data"]["message"].includes("no")) {
+      requestsSuceeded = false;
+    }
+  } catch (error) {
+    requestsSuceeded = false;
+  }
+
+  console.log(`All 6 Requests Succeeded? ${requestsSuceeded}`);
+  console.log("Test 5 Ended");
+  console.log("");
+}
+
+//should expect 3 words to be displayed
 async function addFiveAndDeleteTwoAndDisplay() {}
 
-//resets trie as needed
+//resets trie as needed per test
 async function resetTrie() {
   try {
     let results = await axios.get(`https://triechallenge.herokuapp.com/reset`);
@@ -210,8 +252,8 @@ async function executeTests() {
   // await addFiveAndGetFive();
   // await addFiveAndDeleteOne();
   // await addFiveAndDeleteTwoAndSearchTrue();
-  await addFiveAndDeleteTwoAndSearchFalse();
-  // await addFiveAndDeleteTwoAndAuto();
+  // await addFiveAndDeleteTwoAndSearchFalse();
+  await addFiveAndAndAuto();
   // await addFiveAndDeleteTwoAndDisplay();
 }
 
