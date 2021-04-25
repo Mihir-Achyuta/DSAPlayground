@@ -1,7 +1,11 @@
+//imports the fs method to locate the json file, colorize to format the json in display, and the trieData from the json file
 const fs = require("fs");
 const colorize = require("json-colorizer");
 const trieData = JSON.parse(fs.readFileSync("trieDB.json"));
 
+//1. a trieNode needs a letter for a value,
+//2. children as it needs to hold  other letters(for cats, c has a, a has t, etc..),
+//3. and a wordEnd variable to signify if a word has ended
 class TrieNode {
   constructor(letter) {
     this.letter = letter;
@@ -10,6 +14,8 @@ class TrieNode {
   }
 }
 
+//1. the trie gets the trieData from the json file each request and
+//2. has the words and structure global variables as it makes it easier to keep track of nodes and words when recursively traversing
 class Trie {
   constructor() {
     this.rootNode = trieData;
@@ -126,7 +132,8 @@ class Trie {
     return true;
   }
 
-  //an easy delete function that just marks the wordEnd to false(assuming the word exists) however deleted nodes in memory
+  //an easy delete function that just marks the wordEnd to false(assuming the word exists)
+  //I originally implemented this as my main delete function however it did not delete any nodes so it would waste a lot of space so now it serves as an edge case method
   easyDelete(word) {
     let currNode = this.rootNode;
 
@@ -176,6 +183,7 @@ class Trie {
     this.words = "";
 
     for (let i of prefix) {
+      //can't autocomplete if there is no prefixed words in the trie
       if (!currNode["children"][i]) {
         found = false;
         break;
@@ -183,6 +191,7 @@ class Trie {
       currNode = currNode["children"][i];
     }
     if (found) {
+      //after traversing the trie of the prefix, display the words for its own prefix
       this.displayWords(currNode, prefix);
     }
     return { found: found, words: this.words };
@@ -199,26 +208,29 @@ class Trie {
     return { words: this.words, structure: this.structure };
   }
 
-  //does a search similar to a dfs pre order way
+  //does a search as we traverse down from the parent to the leftmost child of the trie
+  //once the leftmost children have been printed then the for loop increments and we keep making each child node go to the right add those children to the string
   displayWords(currNode, string = "") {
     let nodeChildren = Object.keys(currNode["children"]);
 
+    //adds the word to the global word variable if one is detected
     if (currNode["wordEnd"]) {
       this.words += " " + string;
     }
+    //we will traverse the left children fully first using recursion then the right children
     for (let i of nodeChildren) {
       this.displayWords(currNode["children"][i], string + i);
     }
   }
 
-  //puts the json in a string and then pretty prints it with colors in the console
+  //puts the json in a string and then pretty prints it in the console(client side)
   displayStructure() {
     this.structure = colorize(JSON.stringify(this.rootNode), {
       pretty: true,
     });
   }
 
-  //resets the trie by setting the parent to the original null root node
+  //resets the trie by setting the root node to null
   reset() {
     this.rootNode = new TrieNode(null);
     //save the updated trie node in json database
