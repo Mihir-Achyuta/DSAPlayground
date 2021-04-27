@@ -1,6 +1,6 @@
 # Trie Challenge
 
-- This is the take home challenge for Slingshot's Fellowship Program
+- This is the take home challenge for Slingshot's Fellowship Program(I got accepted :) )
 
 # Table of Contents
 
