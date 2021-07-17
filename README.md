@@ -1,6 +1,6 @@
-# Trie Challenge
+# Hosted Trie
 
-- This is the take home challenge for Slingshot's Fellowship Program(I got accepted :) )
+- This is a globally hosted Trie accessible via NPM and hosted on Heroku. Both CLI and Server are built with Node.js
 
 # Table of Contents
 
