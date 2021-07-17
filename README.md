@@ -14,12 +14,12 @@
 
 - The CLI was built with [Node](http://www.node.com/) +[Express](https://expressjs.com/) and called RESTful API Requests with [Axios](https://www.npmjs.com/package/axios).
 
-- It was distributed through [npm](https://www.npmjs.com/package/triecli) for users to download via the install command
+- It was distributed through [npm](https://www.npmjs.com/package/@mihirachyuta/triecli) for users to download via the install command
 
-- Use the package manager [npm](https://www.npmjs.com/package/triecli) to install the Trie CLI Globally.
+- Use the package manager [npm](https://www.npmjs.com/package/@mihirachyuta/triecli) to install the Trie CLI Globally.
 
 ```bash
-npm i -g triecli
+npm i -g @mihirachyuta/triecli
 ```
 
 # CLI Usage

@@ -1,7 +1,7 @@
 {
-  "name": "triecli",
-  "version": "1.0.3",
-  "description": "The cli for slingshot take home challenge trie",
+  "name": "@mihirachyuta/triecli",
+  "version": "1.0.4",
+  "description": "The cli for the hosted trie",
   "main": "src/cli.js",
   "bin": {
     "triecli": "bin/CliScript"
