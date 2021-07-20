@@ -1,10 +1,5 @@
-const { Trie } = require("../trie");
+const { Trie } = require("../models/trie");
 let trie = new Trie();
-
-//confirmation that server is working
-function serverWorking(req, res) {
-  res.send("Trie Server is working");
-}
 
 //displays all the words in the trie and the trie structure in JSON
 function displayTrie(req, res) {
@@ -76,7 +71,6 @@ function autoCompleteTrie(req, res) {
 }
 
 module.exports = {
-  serverWorking,
   displayTrie,
   resetTrie,
   addToTrie,

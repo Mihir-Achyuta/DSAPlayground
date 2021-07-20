@@ -14,4 +14,9 @@ app.listen(process.env.PORT || 3001, function () {
   console.log("Listening on Port 3001");
 });
 
+//checks to see if the server is online
+app.get("/", function (req, res) {
+  res.send("Trie Server is working");
+});
+
 app.use(trieRoutes);

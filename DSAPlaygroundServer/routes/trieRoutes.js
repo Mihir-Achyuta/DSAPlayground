@@ -1,6 +1,5 @@
 const express = require("express");
 const {
-  serverWorking,
   displayTrie,
   resetTrie,
   addToTrie,
@@ -10,7 +9,6 @@ const {
 } = require("../handlers/trieHandlers");
 const router = express.Router();
 
-router.get("/", serverWorking);
 router.get("/displayTrie", displayTrie);
 router.get("/resetTrie", resetTrie);
 
