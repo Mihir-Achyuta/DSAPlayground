@@ -1,10 +1,25 @@
-//imports express for routes, cors for sharing resources and being api pingable, and the trie data structure
 const express = require("express");
 const cors = require("cors");
-const app = express();
+const firebase = require("firebase");
+require("dotenv").config();
+
+//routes imported
 const trieRoutes = require("./routes/trieRoutes");
 
+//starts up firebase app
+const firebaseConfig = {
+  apiKey: process.env.FIREBASE_API_KEY,
+  authDomain: process.env.FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.FIREBASE_PROJECT_ID,
+  storageBucket: process.env.FIREBASE_API_KEY_STORAGE_BUCKET,
+  messagingSenderId: process.env.FIREBASE_API_KEY_MESSAGE_ID,
+  appId: process.env.FIREBASE_API_KEY_APP_ID,
+  measurementId: process.env.FIREBASE_API_KEY_MEASUREMENT_ID,
+};
+firebase.default.initializeApp(firebaseConfig);
+
 //uses cors, and allows express to parse bodies and json in api requests
+const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
