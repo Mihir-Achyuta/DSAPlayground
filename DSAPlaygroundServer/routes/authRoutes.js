@@ -50,4 +50,26 @@ router.post("/signup", function (req, res) {
     );
 });
 
+router.post("/signout", function (req, res) {
+  firebase.default
+    .auth()
+    .signOut()
+    .then(() =>
+      res.json({
+        message: "User signed out",
+        error: false,
+        code: 200,
+        results: null,
+      })
+    )
+    .catch((error) =>
+      res.json({
+        message: "There was a problem signing out",
+        error: false,
+        code: 200,
+        results: error,
+      })
+    );
+});
+
 module.exports = router;
