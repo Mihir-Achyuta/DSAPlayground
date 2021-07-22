@@ -4,6 +4,7 @@ const firebase = require("firebase");
 require("dotenv").config();
 
 //routes imported
+const authRoutes = require("./routes/authRoutes");
 const trieRoutes = require("./routes/trieRoutes");
 
 //starts up firebase app
@@ -34,4 +35,5 @@ app.get("/", function (req, res) {
   res.send("Trie Server is working");
 });
 
+app.use(authRoutes);
 app.use(trieRoutes);
