@@ -70,8 +70,30 @@ function signOut(req, res) {
     );
 }
 
+function isAuthenticated(req, res, next) {
+  if (firebase.default.auth().currentUser !== null) return next();
+  res.json({
+    message: "Please sign in to access this command",
+    error: true,
+    code: 403,
+    results: null,
+  });
+}
+
+function isNotAuthenticated(req, res, next) {
+  if (firebase.default.auth().currentUser === null) return next();
+  res.json({
+    message: "You are already signed in",
+    error: true,
+    code: 403,
+    results: null,
+  });
+}
+
 module.exports = {
   signUp,
   signIn,
   signOut,
+  isAuthenticated,
+  isNotAuthenticated,
 };

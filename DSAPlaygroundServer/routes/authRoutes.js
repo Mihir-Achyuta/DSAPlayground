@@ -1,10 +1,16 @@
 const express = require("express");
 
-const { signUp, signIn, signOut } = require("../handlers/authHandlers");
+const {
+  signUp,
+  signIn,
+  signOut,
+  isAuthenticated,
+  isNotAuthenticated,
+} = require("../handlers/authHandlers");
 const router = express.Router();
 
-router.post("/signup", signUp);
-router.post("/signin", signIn);
-router.post("/signout", signOut);
+router.post("/signup", isNotAuthenticated, signUp);
+router.post("/signin", isNotAuthenticated, signIn);
+router.post("/signout", isAuthenticated, signOut);
 
 module.exports = router;
