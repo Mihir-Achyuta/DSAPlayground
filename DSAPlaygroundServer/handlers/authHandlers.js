@@ -70,6 +70,21 @@ function signOut(req, res) {
     );
 }
 
+function getCurrentUser(req, res) {
+  const currentUser = firebase.default.auth().currentUser;
+
+  res.json({
+    message: `${
+      currentUser !== null
+        ? "Current user exists"
+        : "Current user doesn't exist"
+    }`,
+    error: false,
+    code: 200,
+    results: currentUser,
+  });
+}
+
 function isAuthenticated(req, res, next) {
   if (firebase.default.auth().currentUser !== null) return next();
   res.json({
@@ -94,6 +109,7 @@ module.exports = {
   signUp,
   signIn,
   signOut,
+  getCurrentUser,
   isAuthenticated,
   isNotAuthenticated,
 };
