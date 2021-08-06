@@ -1,7 +1,11 @@
 const prompts = require("prompts");
-const axios = require("axios");
 
 const { helpCommands } = require("./commands/help/helpCommands");
+const {
+  signIn,
+  signUp,
+  signOut,
+} = require("./commands/authCommands/authCommands");
 const { error } = require("./handlers/error/errorHandler");
 
 export default (async function newCli() {
@@ -17,45 +21,15 @@ export default (async function newCli() {
   }
   //sign in user if not already
   else if (welcomeValue === "sign_in") {
-    try {
-      const { data } = await axios.get("http://localhost:3001/currentuser");
-
-      if (data["results"] === null) {
-        //allow user to sign in
-      } else {
-        error(data["message"]);
-      }
-    } catch (error) {
-      error(error);
-    }
+    signIn();
   }
   //sign up user if not already
   else if (welcomeValue === "sign_up") {
-    try {
-      const { data } = await axios.get("http://localhost:3001/currentuser");
-
-      if (data["results"] === null) {
-        //allow user to sign up
-      } else {
-        error(data["message"]);
-      }
-    } catch (error) {
-      error(error);
-    }
+    signUp();
   }
   //sign out user if not already
   else if (welcomeValue === "sign_out") {
-    try {
-      const { data } = await axios.get("http://localhost:3001/currentuser");
-
-      if (data["results"] !== null) {
-        //make user sign up
-      } else {
-        error(data["message"]);
-      }
-    } catch (error) {
-      error(error);
-    }
+    signOut();
   }
   //invalid command error if no detected command
   else {
