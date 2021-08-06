@@ -2,4 +2,4 @@
 
 //passes the cli raw arguments into the function
 require = require("esm")(module);
-require("../src/newCli");
+require("../src/cli");
