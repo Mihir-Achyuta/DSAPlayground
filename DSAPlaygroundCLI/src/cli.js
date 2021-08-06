@@ -1,6 +1,8 @@
 const prompts = require("prompts");
 const axios = require("axios");
-const { helpCommands } = require("./commands/helpCommands");
+
+const { helpCommands } = require("./commands/help/helpCommands");
+const { error } = require("./handlers/error/errorHandler");
 
 export default (async function newCli() {
   const { welcomeValue } = await prompts({
@@ -63,12 +65,3 @@ export default (async function newCli() {
     );
   }
 })();
-
-//error handler in case of any bad user input
-function error(message, includeHelpCommand = false) {
-  console.error(`Error: ${message}`);
-  if (includeHelpCommand) {
-    console.log("");
-    helpCommands();
-  }
-}
