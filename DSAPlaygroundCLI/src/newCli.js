@@ -1,15 +1,31 @@
 const prompts = require("prompts");
 
 export default (async function newCli() {
-  const welcomeResponse = await prompts({
+  const { welcomeValue } = await prompts({
     type: "text",
     name: "welcomeValue",
     message:
       "Welcome to the DSA Playground. What would you like to do today? Enter help for all the commands",
   });
 
-  console.log(welcomeResponse);
+  if (welcomeValue === "help") {
+    helpCommands();
+  } else {
+    error(
+      "Invalid command entered. Please refer to the help guide for all the commands",
+      true
+    );
+  }
 })();
+
+//error handler in case of any bad user input
+function error(message, includeHelpCommand = false) {
+  console.error(message);
+  if (includeHelpCommand) {
+    console.log("");
+    helpCommands();
+  }
+}
 
 //help docs to help users navigate the cli  (ignored by prettier formatter for formatting reasons)
 // prettier-ignore
