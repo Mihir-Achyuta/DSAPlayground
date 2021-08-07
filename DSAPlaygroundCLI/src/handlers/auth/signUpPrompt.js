@@ -2,18 +2,18 @@ const prompts = require("prompts");
 
 const { errorHandler } = require("../error/errorHandler");
 
-async function signInPrompt() {
+async function signUpPrompt() {
   try {
     const { email, password } = await prompts([
       {
         type: "text",
         name: "email",
-        message: `Enter your email to sign in:`,
+        message: `Enter an email to sign up:`,
       },
       {
         type: "password",
         name: "password",
-        message: "Enter your password to sign in:",
+        message: "Enter a password to sign up:",
       },
     ]);
 
@@ -23,4 +23,4 @@ async function signInPrompt() {
   }
 }
 
-module.exports = { signInPrompt };
+module.exports = { signUpPrompt };

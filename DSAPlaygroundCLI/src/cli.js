@@ -2,7 +2,7 @@ const prompts = require("prompts");
 
 const { helpCommands } = require("./commands/help/helpCommands");
 const { signIn, signUp, signOut } = require("./commands/auth/authCommands");
-const { error } = require("./handlers/error/errorHandler");
+const { errorHandler } = require("./handlers/error/errorHandler");
 
 export default (async function newCli() {
   const { welcomeValue } = await prompts({
@@ -30,7 +30,7 @@ export default (async function newCli() {
       break;
 
     default:
-      error(
+      errorHandler(
         "Invalid command entered. Please refer to the help guide for all the commands",
         true
       );

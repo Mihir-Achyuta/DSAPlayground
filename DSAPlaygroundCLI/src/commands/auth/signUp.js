@@ -1,17 +1,25 @@
 const axios = require("axios");
-const { error } = require("../../handlers/error/errorHandler");
+
+const { errorHandler } = require("../../handlers/error/errorHandler");
+const { signUpPrompt } = require("../../handlers/auth/authHandlers");
 
 async function signUp() {
   try {
     const { data } = await axios.get("http://localhost:3001/currentuser");
 
     if (data["results"] === null) {
-      //allow user to sign up
+      const [email, password] = await signUpPrompt();
+      const userData = await axios.default.post(
+        "http://localhost:3001/signin",
+        { email, password }
+      );
+
+      console.log(userData.data.message);
     } else {
-      error(data["message"]);
+      errorHandler(data["message"]);
     }
   } catch (error) {
-    error(error);
+    errorHandler(error);
   }
 }
 

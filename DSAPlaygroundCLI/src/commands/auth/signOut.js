@@ -1,5 +1,5 @@
 const axios = require("axios");
-const { error } = require("../../handlers/error/errorHandler");
+const { errorHandler } = require("../../handlers/error/errorHandler");
 
 async function signOut() {
   try {
@@ -8,10 +8,10 @@ async function signOut() {
     if (data["results"] !== null) {
       //make user sign up
     } else {
-      error(data["message"]);
+      errorHandler(data["message"]);
     }
   } catch (error) {
-    error(error);
+    errorHandler(error);
   }
 }
 

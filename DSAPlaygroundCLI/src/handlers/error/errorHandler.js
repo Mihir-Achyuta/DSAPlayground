@@ -1,7 +1,7 @@
 const { helpCommands } = require("../../commands/help/helpCommands");
 
 //error handler in case of any bad user input
-function error(message, includeHelpCommand = false) {
+function errorHandler(message, includeHelpCommand = false) {
   console.error(`Error: ${message}`);
   if (includeHelpCommand) {
     console.log("");
@@ -9,4 +9,4 @@ function error(message, includeHelpCommand = false) {
   }
 }
 
-module.exports = { error };
+module.exports = { errorHandler };

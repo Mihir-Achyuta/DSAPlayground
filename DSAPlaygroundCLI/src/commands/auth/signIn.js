@@ -1,6 +1,6 @@
 const axios = require("axios");
 
-const { error } = require("../../handlers/error/errorHandler");
+const { errorHandler } = require("../../handlers/error/errorHandler");
 const { signInPrompt } = require("../../handlers/auth/authHandlers");
 
 async function signIn() {
@@ -18,10 +18,10 @@ async function signIn() {
 
       console.log(userData.data.message);
     } else {
-      error(data["message"]);
+      errorHandler(data["message"]);
     }
   } catch (error) {
-    error(error);
+    errorHandler(error);
   }
 }
 
