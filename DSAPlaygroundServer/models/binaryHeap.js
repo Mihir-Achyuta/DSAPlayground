@@ -1,11 +1,11 @@
 class MaxBinaryHeap {
-  constructor() {
-    this.values = [];
+  constructor(storedHeap) {
+    this.values = storedHeap;
   }
 
   insert(value) {
     this.values.push(value);
-    this.bubbleUp();
+    return this.bubbleUp();
   }
 
   bubbleUp() {

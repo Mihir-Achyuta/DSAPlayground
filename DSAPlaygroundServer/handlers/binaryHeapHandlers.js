@@ -1,4 +1,5 @@
 const firebase = require("firebase");
+const { MaxBinaryHeap } = require("../models/binaryHeap");
 
 function getUserData() {
   return firebase.default
@@ -64,8 +65,58 @@ function createHeap(req, res) {
     .catch((error) => console.log(error));
 }
 
-function insertInHeap(req, res) {}
+function insertInHeap(req, res) {
+  getUserData()
+    .get()
+    .then((doc) => {
+      const { currentData } = doc.data();
+      const heapFound = currentData["binary_heap"].find(
+        (heap) => heap["name"] === req.params.name
+      );
 
-function extractFromHeap(params) {}
+      if (heapFound) {
+        const maxHeap = new MaxBinaryHeap(heapFound.data);
+
+        heapFound["data"] = maxHeap.insert(req.params.number);
+        getUserData().set({ currentData });
+        res.json({
+          message: `Inserted ${req.params.number} into heap with name ${req.params.name}`,
+          error: false,
+          code: 200,
+          results: heapFound,
+        });
+      } else {
+        res.json({
+          message: `Heap with name ${req.params.name} doesn't exist`,
+          error: false,
+          code: 200,
+          results: heapFound,
+        });
+      }
+    })
+    .catch((error) => console.log(error));
+}
+
+function extractFromHeap(params) {
+  getUserData()
+    .get()
+    .then((doc) => {
+      const { currentData } = doc.data();
+      const heapFound = currentData["binary_heap"].find(
+        (heap) => heap["name"] === req.params.name
+      );
+
+      if (heapFound) {
+      } else {
+        res.json({
+          message: `Heap with name ${req.params.name} doesn't exist`,
+          error: false,
+          code: 200,
+          results: heapFound,
+        });
+      }
+    })
+    .catch((error) => console.log(error));
+}
 
 module.exports = { displayHeap, createHeap, insertInHeap, extractFromHeap };
