@@ -26,18 +26,22 @@ class MaxBinaryHeap {
       }
       //new index is parent to prevent infinite loop and to keep track of newly swapped value index
       index = parent;
+      indexValue = this.values[index];
     }
     return this.values;
   }
 
   extractMax() {
-    //gets the last value in the top position
-    var returnedMax = this.values.shift();
-    this.values.unshift(this.values[this.values.length - 1]);
-    this.values.pop();
-    //puts down the last value in the correct position
-    this.bubbleDown();
-    return returnedMax;
+    if (this.values.length > 0) {
+      //gets the last value in the top position
+      var returnedMax = this.values.shift();
+      this.values.unshift(this.values[this.values.length - 1]);
+      this.values.pop();
+      //puts down the last value in the correct position
+      this.bubbleDown();
+      return returnedMax;
+    }
+    return null;
   }
 
   bubbleDown() {

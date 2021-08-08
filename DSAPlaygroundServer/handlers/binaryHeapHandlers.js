@@ -97,7 +97,7 @@ function insertInHeap(req, res) {
     .catch((error) => console.log(error));
 }
 
-function extractFromHeap(params) {
+function extractFromHeap(req, res) {
   getUserData()
     .get()
     .then((doc) => {
@@ -107,6 +107,17 @@ function extractFromHeap(params) {
       );
 
       if (heapFound) {
+        const maxHeap = new MaxBinaryHeap(heapFound.data);
+        const number = maxHeap.extractMax();
+
+        heapFound["data"] = maxHeap.values;
+        getUserData().set({ currentData });
+        res.json({
+          message: `Extracted ${number} into heap with name ${req.params.name}`,
+          error: false,
+          code: 200,
+          results: heapFound,
+        });
       } else {
         res.json({
           message: `Heap with name ${req.params.name} doesn't exist`,
