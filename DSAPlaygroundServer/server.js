@@ -3,10 +3,6 @@ const cors = require("cors");
 const firebase = require("firebase");
 require("dotenv").config();
 
-//routes imported
-const authRoutes = require("./routes/authRoutes");
-const trieRoutes = require("./routes/trieRoutes");
-
 //starts up firebase app
 const firebaseConfig = {
   apiKey: process.env.FIREBASE_API_KEY,
@@ -18,6 +14,11 @@ const firebaseConfig = {
   measurementId: process.env.FIREBASE_API_KEY_MEASUREMENT_ID,
 };
 firebase.default.initializeApp(firebaseConfig);
+
+//routes imported
+const authRoutes = require("./routes/authRoutes");
+const binaryHeapRoutes = require("./routes/binaryHeapRoutes");
+const trieRoutes = require("./routes/trieRoutes");
 
 //uses cors, and allows express to parse bodies and json in api requests
 const app = express();
@@ -36,4 +37,5 @@ app.get("/", function (req, res) {
 });
 
 app.use(authRoutes);
+app.use(binaryHeapRoutes);
 app.use(trieRoutes);
