@@ -2,6 +2,7 @@ const prompts = require("prompts");
 
 const { helpCommands } = require("./commands/help/helpCommands");
 const { signIn, signUp, signOut } = require("./commands/auth/authCommands");
+const { playground } = require("./commands/playground/playgroundCommands");
 const { errorHandler } = require("./handlers/error/errorHandler");
 
 export default (async function newCli() {
@@ -27,6 +28,10 @@ export default (async function newCli() {
 
     case "sign_out":
       signOut();
+      break;
+
+    case "enter_playground":
+      playground();
       break;
 
     default:
