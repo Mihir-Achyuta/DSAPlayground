@@ -1,6 +1,6 @@
 const prompts = require("prompts");
 
-const { helpCommands } = require("./commands/help/helpCommands");
+const { welcomeHelp } = require("./commands/help/helpCommands");
 const { signIn, signUp, signOut } = require("./commands/auth/authCommands");
 const { playground } = require("./commands/playground/playgroundCommands");
 const { errorHandler } = require("./handlers/error/errorHandler");
@@ -15,7 +15,7 @@ export default (async function newCli() {
 
   switch (welcomeValue) {
     case "help":
-      helpCommands();
+      welcomeHelp();
       break;
 
     case "sign_in":
