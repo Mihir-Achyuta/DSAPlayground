@@ -30,7 +30,7 @@ export default (async function newCli() {
       signOut();
       break;
 
-    case "enter_playground":
+    case "playground":
       playground();
       break;
 
