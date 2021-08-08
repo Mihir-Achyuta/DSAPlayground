@@ -1,4 +1,7 @@
 const prompts = require("prompts");
+
+const { playgroundHelp } = require("../help/playgroundHelp");
+const { binaryHeapCli } = require("./binaryHeapCli");
 const { errorHandler } = require("../../handlers/error/errorHandler");
 
 async function playgroundCli() {
@@ -19,6 +22,10 @@ async function playgroundCli() {
           console.log("exiting");
           break;
 
+        case "help":
+          playgroundHelp();
+          break;
+
         case "singly_linked_list":
           break;
 
@@ -35,6 +42,7 @@ async function playgroundCli() {
           break;
 
         case "binary_heap":
+          binaryHeapCli();
           break;
 
         case "trie":

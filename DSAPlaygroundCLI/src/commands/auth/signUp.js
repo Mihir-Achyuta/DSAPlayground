@@ -10,7 +10,7 @@ async function signUp() {
     if (data["results"] === null) {
       const [email, password] = await signUpPrompt();
       const userData = await axios.default.post(
-        "http://localhost:3001/signin",
+        "http://localhost:3001/signup",
         { email, password }
       );
 

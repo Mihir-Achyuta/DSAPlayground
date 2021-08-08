@@ -6,14 +6,28 @@ function signUp(req, res) {
   firebase.default
     .auth()
     .createUserWithEmailAndPassword(email, password)
-    .then((userCredential) =>
+    .then((userCredential) => {
+      firebase.default
+        .firestore()
+        .collection("users")
+        .doc(`${userCredential.user.uid}`)
+        .set({
+          singly_linked_list: [],
+          doubly_linked_list: [],
+          stack: [],
+          queue: [],
+          binary_search_tree: [],
+          binary_heap: [],
+          trie: [],
+        });
+
       res.json({
         message: "User created",
         error: false,
         code: 200,
         results: userCredential,
-      })
-    )
+      });
+    })
     .catch((error) =>
       res.json({
         message: "Unable to create user with email and password",
