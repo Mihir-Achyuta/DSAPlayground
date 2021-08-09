@@ -31,7 +31,7 @@ function createBst(req, res) {
           message: `Binary Search Tree with name ${req.params.name} created`,
           error: false,
           code: 200,
-          results: { name: req.params.name, data: [] },
+          results: { name: req.params.name, data: null },
         });
       }
     })
@@ -40,6 +40,37 @@ function createBst(req, res) {
 
 function insertBst(req, res) {}
 
-function deleteBst(req, res) {}
+function deleteBst(req, res) {
+  getUserData()
+    .get()
+    .then((doc) => {
+      const { currentData } = doc.data();
+      const treeFound = currentData["binary_search_tree"].find(
+        (tree) => tree["name"] === req.params.name
+      );
+
+      if (treeFound) {
+        currentData["binary_search_tree"] = currentData[
+          "binary_search_tree"
+        ].filter((tree) => tree["name"] !== req.params.name);
+        getUserData().set({ currentData });
+
+        res.json({
+          message: `Deleted binary search tree with name ${req.params.name}`,
+          error: false,
+          code: 200,
+          results: treeFound,
+        });
+      } else {
+        res.json({
+          message: `Binary Search Tree with name ${req.params.name} doesn't exist`,
+          error: false,
+          code: 200,
+          results: treeFound,
+        });
+      }
+    })
+    .catch((error) => console.log(error));
+}
 
 module.exports = { displayBst, deleteBst, createBst, insertBst, searchBst };
