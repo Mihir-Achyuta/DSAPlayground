@@ -42,3 +42,5 @@ class Queue {
     return removedNode;
   }
 }
+
+module.exports = { Queue };
