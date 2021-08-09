@@ -3,7 +3,42 @@ const { getUserData } = require("./userDataHandlers");
 
 function displayBst(req, res) {}
 
-function searchBst(req, res) {}
+function searchBst(req, res) {
+  getUserData()
+    .get()
+    .then((doc) => {
+      const { currentData } = doc.data();
+      const treeFound = currentData["binary_search_tree"].find(
+        (tree) => tree["name"] === req.params.name
+      );
+
+      if (treeFound) {
+        const binarySearchTree = new BinarySearchTree(
+          JSON.parse(treeFound.data)
+        );
+        const elementFound = binarySearchTree.search(
+          parseInt(req.params.number)
+        );
+
+        res.json({
+          message: `Binary Search Tree with name ${req.params.name} ${
+            !elementFound ? "doesn't contain" : "contains"
+          } element ${req.params.number}`,
+          error: false,
+          code: 200,
+          results: treeFound,
+        });
+      } else {
+        res.json({
+          message: `Binary Search Tree with name ${req.params.name} doesn't exist`,
+          error: false,
+          code: 200,
+          results: treeFound,
+        });
+      }
+    })
+    .catch((error) => console.log(error));
+}
 
 function createBst(req, res) {
   getUserData()

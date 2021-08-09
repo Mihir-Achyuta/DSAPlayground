@@ -54,7 +54,7 @@ class BinarySearchTree {
     }
 
     var searchNode = this.root;
-    var count = 0;
+
     while (true) {
       if (
         searchNode.right === null &&
@@ -68,12 +68,8 @@ class BinarySearchTree {
       }
 
       if (value > searchNode.value) {
-        console.log("right swerve " + count);
-        count++;
         searchNode = searchNode.right;
       } else {
-        console.log("left swerve " + count);
-        count++;
         searchNode = searchNode.left;
       }
     }
