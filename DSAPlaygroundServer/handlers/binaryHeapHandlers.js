@@ -77,7 +77,7 @@ function insertInHeap(req, res) {
       if (heapFound) {
         const maxHeap = new MaxBinaryHeap(heapFound.data);
 
-        heapFound["data"] = maxHeap.insert(req.params.number);
+        heapFound["data"] = maxHeap.insert(parseInt(req.params.number));
         getUserData().set({ currentData });
         res.json({
           message: `Inserted ${req.params.number} into heap with name ${req.params.name}`,
