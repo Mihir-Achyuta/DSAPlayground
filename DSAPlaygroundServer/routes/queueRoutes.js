@@ -8,6 +8,6 @@ router.get("/displayqueue:name", isAuthenticated);
 router.post("/enqueue/:name/:number", isAuthenticated);
 router.post("/dequeue/:name", isAuthenticated);
 
-router.delete("/deletequeue/:name");
+router.delete("/deletequeue/:name", isAuthenticated);
 
 module.exports = router;

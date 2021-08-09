@@ -8,6 +8,6 @@ router.get("/displaystack:name", isAuthenticated);
 router.post("/pushstack/:name/:number", isAuthenticated);
 router.post("/popstack/:name", isAuthenticated);
 
-router.delete("/deletestack/:name");
+router.delete("/deletestack/:name", isAuthenticated);
 
 module.exports = router;
