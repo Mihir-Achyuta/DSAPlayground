@@ -7,8 +7,8 @@ class Node {
 }
 
 class BinarySearchTree {
-  constructor() {
-    this.root = null;
+  constructor(storedTree) {
+    this.root = storedTree;
   }
 
   insert(value) {
@@ -16,7 +16,7 @@ class BinarySearchTree {
 
     if (this.root === null) {
       this.root = newNode;
-      return this;
+      return this.root;
     }
 
     var start = this.root;
