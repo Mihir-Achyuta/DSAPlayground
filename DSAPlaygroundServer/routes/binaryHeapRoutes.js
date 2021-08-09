@@ -13,8 +13,8 @@ const {
 router.get("/displayheap/:name", isAuthenticated, displayHeap);
 
 router.post("/createheap/:name", isAuthenticated, createHeap);
-router.post("/insertinheap/:name/:number", isAuthenticated, insertInHeap);
-router.post("/extractfromheap/:name", isAuthenticated, extractFromHeap);
+router.post("/insertheap/:name/:number", isAuthenticated, insertInHeap);
+router.post("/extractheap/:name", isAuthenticated, extractFromHeap);
 
 router.delete("/deleteheap/:name", isAuthenticated, deleteHeap);
 

@@ -40,6 +40,8 @@ class BinarySearchTree {
         }
       }
     }
+
+    return this.root;
   }
 
   search(value) {
