@@ -35,6 +35,39 @@ function displayHeap(req, res) {
     });
 }
 
+function deleteHeap(req, res) {
+  getUserData()
+    .get()
+    .then((doc) => {
+      const { currentData } = doc.data();
+      const heapFound = currentData["binary_heap"].find(
+        (heap) => heap["name"] === req.params.name
+      );
+
+      if (heapFound) {
+        currentData["binary_heap"] = currentData["binary_heap"].filter(
+          (heap) => heap["name"] !== req.params.name
+        );
+        getUserData().set({ currentData });
+
+        res.json({
+          message: `Deleted heap with name ${req.params.name}`,
+          error: false,
+          code: 200,
+          results: heapFound,
+        });
+      } else {
+        res.json({
+          message: `Heap with name ${req.params.name} doesn't exist`,
+          error: false,
+          code: 200,
+          results: heapFound,
+        });
+      }
+    })
+    .catch((error) => console.log(error));
+}
+
 function createHeap(req, res) {
   getUserData()
     .get()
@@ -130,4 +163,10 @@ function extractFromHeap(req, res) {
     .catch((error) => console.log(error));
 }
 
-module.exports = { displayHeap, createHeap, insertInHeap, extractFromHeap };
+module.exports = {
+  displayHeap,
+  createHeap,
+  deleteHeap,
+  insertInHeap,
+  extractFromHeap,
+};
