@@ -1,12 +1,5 @@
-const firebase = require("firebase");
 const { MaxBinaryHeap } = require("../models/binaryHeap");
-
-function getUserData() {
-  return firebase.default
-    .firestore()
-    .collection("users")
-    .doc(`${firebase.default.auth().currentUser.uid}`);
-}
+const { getUserData } = require("./userDataHandlers");
 
 function displayHeap(req, res) {
   getUserData()

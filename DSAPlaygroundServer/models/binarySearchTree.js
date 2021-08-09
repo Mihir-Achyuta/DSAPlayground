@@ -101,11 +101,4 @@ class BinarySearchTree {
   }
 }
 
-let bst = new BinarySearchTree();
-bst.insert(50);
-bst.insert(75);
-bst.insert(100);
-bst.insert(25);
-bst.display();
-
 module.exports = { BinarySearchTree };
