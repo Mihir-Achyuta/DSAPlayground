@@ -10,4 +10,4 @@ router.post("/dequeue/:name", isAuthenticated);
 
 router.delete("/deletequeue/:name");
 
-module.exports = { router };
+module.exports = router;

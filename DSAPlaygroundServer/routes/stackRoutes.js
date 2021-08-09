@@ -10,4 +10,4 @@ router.post("/popstack/:name", isAuthenticated);
 
 router.delete("/deletestack/:name");
 
-module.exports = { router };
+module.exports = router;
