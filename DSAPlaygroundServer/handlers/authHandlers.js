@@ -13,7 +13,6 @@ function signUp(req, res) {
         .doc(`${userCredential.user.uid}`)
         .set({
           singly_linked_list: [],
-          doubly_linked_list: [],
           stack: [],
           queue: [],
           binary_search_tree: [],

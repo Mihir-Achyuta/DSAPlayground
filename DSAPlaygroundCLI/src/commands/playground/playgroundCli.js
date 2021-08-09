@@ -29,9 +29,6 @@ async function playgroundCli() {
         case "singly_linked_list":
           break;
 
-        case "doubly_linked_list":
-          break;
-
         case "stack":
           break;
 
