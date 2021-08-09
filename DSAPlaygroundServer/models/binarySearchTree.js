@@ -78,6 +78,34 @@ class BinarySearchTree {
       }
     }
   }
+
+  display() {
+    const queue = [];
+    let result = ``;
+
+    queue.push(this.root);
+    while (queue.length > 0) {
+      const size = queue.length;
+
+      for (let i = 0; i < size; i++) {
+        const currNode = queue.shift();
+        result += currNode.value + " ";
+
+        if (currNode.left) queue.push(currNode.left);
+        if (currNode.right) queue.push(currNode.right);
+      }
+      result += "\n";
+    }
+
+    return result;
+  }
 }
+
+let bst = new BinarySearchTree();
+bst.insert(50);
+bst.insert(75);
+bst.insert(100);
+bst.insert(25);
+bst.display();
 
 module.exports = { BinarySearchTree };
