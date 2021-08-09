@@ -1,4 +1,6 @@
 const express = require("express");
+
+const { isAuthenticated } = require("../handlers/authHandlers");
 const {
   displayTrie,
   resetTrie,
@@ -9,12 +11,15 @@ const {
 } = require("../handlers/trieHandlers");
 const router = express.Router();
 
-router.get("/displayTrie", displayTrie);
-router.get("/resetTrie", resetTrie);
+router.get("/displaytrie/:name", isAuthenticated, displayTrie);
+router.get("/resettrie/:name", isAuthenticated, resetTrie);
 
-router.post("/addTrie", addToTrie);
-router.post("/deleteTrie", deleteFromTrie);
-router.post("/searchTrie", searchInTrie);
-router.post("/autocompleteTrie", autoCompleteTrie);
+router.post("/createtrie/:name", isAuthenticated);
+router.post("/addtrie/:name/:word", isAuthenticated, addToTrie);
+router.post("/deletetrie/:name/:word", isAuthenticated, deleteFromTrie);
+router.post("/searchtrie/:name/:word", isAuthenticated, searchInTrie);
+router.post("/autocompletetrie/:name/:word", isAuthenticated, autoCompleteTrie);
+
+router.delete("/deletetrie/:name");
 
 module.exports = router;
