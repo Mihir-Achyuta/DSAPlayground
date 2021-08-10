@@ -3,6 +3,8 @@ const { getUserData } = require("./userDataHandlers");
 
 function displayQueue(req, res) {}
 
+function createQueue(req, res) {}
+
 function enqueue(req, res) {}
 
 function dequeue(req, res) {}
@@ -40,4 +42,4 @@ function deleteQueue(req, res) {
     .catch((error) => console.log(error));
 }
 
-module.exports = { displayQueue, enqueue, dequeue, deleteQueue };
+module.exports = { displayQueue, createQueue, enqueue, dequeue, deleteQueue };

@@ -3,10 +3,18 @@ const { getUserData } = require("./userDataHandlers");
 
 function displayStack(req, res) {}
 
-function push(req, res) {}
+function createStack(req, res) {}
 
-function pop(req, res) {}
+function pushStack(req, res) {}
+
+function popStack(req, res) {}
 
 function deleteStack(req, res) {}
 
-module.exports = { displayStack, push, pop, deleteStack };
+module.exports = {
+  displayStack,
+  createStack,
+  pushStack,
+  popStack,
+  deleteStack,
+};
