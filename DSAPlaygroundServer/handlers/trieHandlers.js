@@ -21,6 +21,9 @@ function resetTrie(req, res) {
   });
 }
 
+//creates the trie
+function createTrie(req, res) {}
+
 //adds a word to the trie
 function addToTrie(req, res) {
   let wordToAdd = req.body.specifiedWord;
@@ -70,11 +73,47 @@ function autoCompleteTrie(req, res) {
   });
 }
 
+//deletes trie from data
+function deleteTrie(req, res) {
+  getUserData()
+    .get()
+    .then((doc) => {
+      const { currentData } = doc.data();
+      const trieFound = currentData["trie"].find(
+        (trie) => trie["name"] === req.params.name
+      );
+
+      if (trie) {
+        currentData["trie"] = currentData["trie"].filter(
+          (trie) => trie["name"] !== req.params.name
+        );
+        getUserData().set({ currentData });
+
+        res.json({
+          message: `Deleted trie with name ${req.params.name}`,
+          error: false,
+          code: 200,
+          results: trieFound,
+        });
+      } else {
+        res.json({
+          message: `Trie with name ${req.params.name} doesn't exist`,
+          error: false,
+          code: 200,
+          results: trie,
+        });
+      }
+    })
+    .catch((error) => console.log(error));
+}
+
 module.exports = {
   displayTrie,
   resetTrie,
+  createTrie,
   addToTrie,
   deleteFromTrie,
   searchInTrie,
   autoCompleteTrie,
+  deleteTrie,
 };

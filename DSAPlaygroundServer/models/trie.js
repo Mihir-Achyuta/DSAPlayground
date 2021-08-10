@@ -17,8 +17,8 @@ class TrieNode {
 //1. the trie gets the trieData from the json file each request and
 //2. has the words and structure global variables as it makes it easier to keep track of nodes and words when recursively traversing
 class Trie {
-  constructor() {
-    this.rootNode = trieData;
+  constructor(storedTrie) {
+    this.rootNode = storedTrie;
     this.words = "";
     this.structure = {};
   }
