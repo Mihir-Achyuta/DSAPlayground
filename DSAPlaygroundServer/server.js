@@ -37,7 +37,7 @@ app.listen(process.env.PORT || 3001, function () {
 
 //checks to see if the server is online
 app.get("/", function (req, res) {
-  res.send("Trie Server is working");
+  res.send("DSA Playground Server is working");
 });
 
 app.use(authRoutes);
