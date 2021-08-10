@@ -64,9 +64,68 @@ function createStack(req, res) {
     .catch((error) => console.log(error));
 }
 
-function pushStack(req, res) {}
+function pushStack(req, res) {
+  getUserData()
+    .get()
+    .then((doc) => {
+      const { currentData } = doc.data();
+      const stackFound = currentData["stack"].find(
+        (stack) => stack["name"] === req.params.name
+      );
 
-function popStack(req, res) {}
+      if (stackFound) {
+        const stack = new Stack(stackFound["data"]);
+
+        stackFound["data"] = stack.push(parseInt(req.params.number));
+        getUserData().set({ currentData });
+        res.json({
+          message: `Inserted ${req.params.number} into stack with name ${req.params.name}`,
+          error: false,
+          code: 200,
+          results: stackFound,
+        });
+      } else {
+        res.json({
+          message: `Stack with name ${req.params.name} doesn't exist`,
+          error: false,
+          code: 200,
+          results: stackFound,
+        });
+      }
+    });
+}
+
+function popStack(req, res) {
+  getUserData()
+    .get()
+    .then((doc) => {
+      const { currentData } = doc.data();
+      const stackFound = currentData["stack"].find(
+        (stack) => stack["name"] === req.params.name
+      );
+
+      if (stackFound) {
+        const stack = new Stack(stackFound["data"]);
+        const poppedNumber = stack.pop();
+
+        stackFound["data"] = stack.arr;
+        getUserData().set({ currentData });
+        res.json({
+          message: `Popped ${poppedNumber} from stack with name ${req.params.name}`,
+          error: false,
+          code: 200,
+          results: stackFound,
+        });
+      } else {
+        res.json({
+          message: `Stack with name ${req.params.name} doesn't exist`,
+          error: false,
+          code: 200,
+          results: stackFound,
+        });
+      }
+    });
+}
 
 function deleteStack(req, res) {
   getUserData()
@@ -79,7 +138,7 @@ function deleteStack(req, res) {
 
       if (stackFound) {
         currentData["stack"] = currentData["stack"].filter(
-          (stack) => queue["stack"] !== req.params.name
+          (stack) => stack["name"] !== req.params.name
         );
         getUserData().set({ currentData });
 

@@ -13,7 +13,7 @@ class Stack {
     this.arr = storedStack;
 
     const length = storedStack.length;
-    for (let i = 0; i < length; i++) {
+    for (let i = length - 1; i >= 0; i--) {
       this.push(storedStack[i], true);
     }
   }
@@ -29,7 +29,7 @@ class Stack {
       this.start.next = temp;
     }
     this.size++;
-    !initialFill && this.arr.shift(val);
+    !initialFill && this.arr.unshift(val);
 
     return this.arr;
   }
