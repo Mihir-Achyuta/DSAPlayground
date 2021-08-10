@@ -1,6 +1,5 @@
 const { Trie } = require("../models/trie");
 const { getUserData } = require("./userDataHandlers");
-let trie = new Trie();
 
 //displays all the words in the trie and the trie structure in JSON
 function displayTrie(req, res) {
@@ -69,11 +68,35 @@ function createTrie(req, res) {
 
 //adds a word to the trie
 function addToTrie(req, res) {
-  let wordToAdd = req.body.specifiedWord;
-  console.log(req.body);
+  getUserData()
+    .get()
+    .then((doc) => {
+      const { currentData } = doc.data();
+      const trieFound = currentData["trie"].find(
+        (trie) => trie["name"] === req.params.name
+      );
 
-  trie.add(wordToAdd);
-  res.json({ succeeded: true, message: `Word ${wordToAdd} Added to trie` });
+      if (trieFound) {
+        const trie = new Trie(JSON.parse(trieFound["data"]));
+
+        trieFound["data"] = JSON.stringify(trie.add(req.params.word));
+        getUserData().set({ currentData });
+        res.json({
+          message: `Word ${req.params.word} added to trie with name ${req.params.name}`,
+          error: false,
+          code: 200,
+          results: trieFound,
+        });
+      } else {
+        res.json({
+          message: `Trie with name ${req.params.name} doesn't exist`,
+          error: false,
+          code: 200,
+          results: trieFound,
+        });
+      }
+    })
+    .catch((error) => console.log(error));
 }
 
 //deletes a word from the trie if it is present

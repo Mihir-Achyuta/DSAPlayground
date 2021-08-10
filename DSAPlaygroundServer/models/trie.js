@@ -1,7 +1,6 @@
 //imports the fs method to locate the json file, colorize to format the json in display, and the trieData from the json file
 const fs = require("fs");
 const colorize = require("json-colorizer");
-const trieData = JSON.parse(fs.readFileSync("trieDB.json"));
 
 //1. a trieNode needs a letter for a value,
 //2. children as it needs to hold  other letters(for cats, c has a, a has t, etc..),
@@ -39,8 +38,8 @@ class Trie {
       currNode = currNode["children"][i];
     }
     currNode["wordEnd"] = true;
-    //save the updated trie node in json database
-    fs.writeFileSync("trieDB.json", JSON.stringify(this.rootNode));
+
+    return this.rootNode;
   }
 
   //there are a couple of edge cases to delete from a trie
