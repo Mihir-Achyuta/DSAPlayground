@@ -1,7 +1,32 @@
 const { Queue } = require("../models/queue");
 const { getUserData } = require("./userDataHandlers");
 
-function displayQueue(req, res) {}
+function displayQueue(req, res) {
+  getUserData()
+    .get()
+    .then((doc) => {
+      const { currentData } = doc.data();
+      const queueFound = currentData["queue"].find(
+        (queue) => queue["name"] === req.params.name
+      );
+
+      if (queueFound) {
+        res.json({
+          message: `Here is the printed queue: [${queueFound.data}]`,
+          error: false,
+          code: 200,
+          results: queueFound.data,
+        });
+      } else {
+        res.json({
+          message: `Queue with name ${req.params.name} doesn't exist`,
+          error: false,
+          code: 200,
+          results: queueFound,
+        });
+      }
+    });
+}
 
 function createQueue(req, res) {}
 
