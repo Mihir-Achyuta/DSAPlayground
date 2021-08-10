@@ -3,12 +3,34 @@ const { getUserData } = require("./userDataHandlers");
 
 //displays all the words in the trie and the trie structure in JSON
 function displayTrie(req, res) {
-  let { words, structure } = trie.display();
+  getUserData()
+    .get()
+    .then((doc) => {
+      const { currentData } = doc.data();
+      const trieFound = currentData["trie"].find(
+        (trie) => trie["name"] === req.params.name
+      );
 
-  res.json({
-    succeeded: true,
-    message: `Here are the printed trie words:${words}\nHere is the trie structure:\n ${structure}`,
-  });
+      if (trieFound) {
+        const trie = new Trie(JSON.parse(trieFound["data"]));
+        const { words } = trie.display();
+
+        res.json({
+          message: `Here are the printed trie words:${words}`,
+          error: false,
+          code: 200,
+          results: trieFound,
+        });
+      } else {
+        res.json({
+          message: `Trie with name ${req.params.name} doesn't exist`,
+          error: false,
+          code: 200,
+          results: trieFound,
+        });
+      }
+    })
+    .catch((error) => console.log(error));
 }
 
 //resets the trie to have no word along with the json database file
