@@ -21,7 +21,6 @@ const binaryHeapRoutes = require("./routes/binaryHeapRoutes");
 const binarySearchTreeRoutes = require("./routes/binarySearchTreeRoutes");
 const stackRoutes = require("./routes/stackRoutes");
 const queueRoutes = require("./routes/queueRoutes");
-const singlyLinkedListRoutes = require("./routes/singlyLinkedListRoutes");
 const trieRoutes = require("./routes/trieRoutes");
 
 //uses cors, and allows express to parse bodies and json in api requests
@@ -45,5 +44,4 @@ app.use(binaryHeapRoutes);
 app.use(binarySearchTreeRoutes);
 app.use(stackRoutes);
 app.use(queueRoutes);
-app.use(singlyLinkedListRoutes);
 app.use(trieRoutes);

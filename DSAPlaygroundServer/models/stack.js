@@ -6,13 +6,19 @@ class Node {
 }
 
 class Stack {
-  constructor() {
+  constructor(storedStack) {
     this.start = null;
     this.end = null;
     this.size = 0;
+    this.arr = storedStack;
+
+    const length = storedStack.length;
+    for (let i = 0; i < length; i++) {
+      this.push(storedStack[i], true);
+    }
   }
 
-  push(val) {
+  push(val, initialFill = false) {
     var newNode = new Node(val);
     if (this.size === 0) {
       this.start = newNode;
@@ -23,7 +29,9 @@ class Stack {
       this.start.next = temp;
     }
     this.size++;
-    return this.size;
+    !initialFill && this.arr.shift(val);
+
+    return this.arr;
   }
 
   pop() {
@@ -40,6 +48,7 @@ class Stack {
       this.start = this.start.next;
     }
     this.size--;
+    this.arr.shift();
 
     return startNode.val;
   }
