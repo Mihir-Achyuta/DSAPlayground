@@ -28,7 +28,35 @@ function displayQueue(req, res) {
     });
 }
 
-function createQueue(req, res) {}
+function createQueue(req, res) {
+  getUserData()
+    .get()
+    .then((doc) => {
+      const { currentData } = doc.data();
+      const isDuplicate = currentData["queue"].find(
+        (queue) => queue["name"] === req.params.name
+      );
+
+      if (isDuplicate) {
+        res.json({
+          message: `Queue with name ${req.params.name} already exists`,
+          error: false,
+          code: 200,
+          results: isDuplicate,
+        });
+      } else {
+        currentData["queue"].push({ name: req.params.name, data: [] });
+        getUserData().set({ currentData });
+        res.json({
+          message: `Queue with name ${req.params.name} created`,
+          error: false,
+          code: 200,
+          results: { name: req.params.name, data: [] },
+        });
+      }
+    })
+    .catch((error) => console.log(error));
+}
 
 function enqueue(req, res) {}
 

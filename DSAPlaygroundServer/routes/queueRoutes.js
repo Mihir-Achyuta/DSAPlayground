@@ -10,9 +10,9 @@ const {
   deleteQueue,
 } = require("../handlers/queueHandlers");
 
-router.get("/displayqueue:name", isAuthenticated, displayQueue);
+router.get("/displayqueue/:name", isAuthenticated, displayQueue);
 
-router.post("/createqueue", isAuthenticated, createQueue);
+router.post("/createqueue/:name", isAuthenticated, createQueue);
 router.post("/enqueue/:name/:number", isAuthenticated, enqueue);
 router.post("/dequeue/:name", isAuthenticated, dequeue);
 
