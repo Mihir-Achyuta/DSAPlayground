@@ -95,7 +95,37 @@ function enqueue(req, res) {
     });
 }
 
-function dequeue(req, res) {}
+function dequeue(req, res) {
+  getUserData()
+    .get()
+    .then((doc) => {
+      const { currentData } = doc.data();
+      const queueFound = currentData["queue"].find(
+        (queue) => queue["name"] === req.params.name
+      );
+
+      if (queueFound) {
+        const queue = new Queue(queueFound["data"]);
+        const number = queue.dequeue();
+
+        queueFound["data"] = queue.arr;
+        getUserData().set({ currentData });
+        res.json({
+          message: `Dequeued ${number} from queue with name ${req.params.name}`,
+          error: false,
+          code: 200,
+          results: queueFound,
+        });
+      } else {
+        res.json({
+          message: `Queue with name ${req.params.name} doesn't exist`,
+          error: false,
+          code: 200,
+          results: queueFound,
+        });
+      }
+    });
+}
 
 function deleteQueue(req, res) {
   getUserData()

@@ -45,9 +45,11 @@ class Queue {
       this.start = null;
       this.end = null;
     }
+
+    const deletedNum = this.arr[0];
     this.arr.shift();
 
-    return this.arr;
+    return deletedNum;
   }
 }
 
