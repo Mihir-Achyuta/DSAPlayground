@@ -6,13 +6,19 @@ class Node {
 }
 
 class Queue {
-  constructor() {
+  constructor(storedQueue) {
     this.start = null;
     this.end = null;
     this.length = 0;
+    this.arr = storedQueue;
+
+    const length = storedQueue.length;
+    for (let i = 0; i < length; i++) {
+      this.enqueue(storedQueue[i], true);
+    }
   }
 
-  enqueue(val) {
+  enqueue(val, initialFill = false) {
     var newNode = new Node(val);
     if (this.length === 0) {
       this.start = newNode;
@@ -22,7 +28,9 @@ class Queue {
       this.end = newNode;
     }
     this.length++;
-    return this.length;
+    !initialFill && this.arr.push(val);
+
+    return this.arr;
   }
 
   dequeue() {
@@ -30,7 +38,6 @@ class Queue {
       return null;
     }
 
-    var removedNode = this.start;
     this.start = this.start.next;
     this.length--;
 
@@ -38,8 +45,9 @@ class Queue {
       this.start = null;
       this.end = null;
     }
+    this.arr.shift();
 
-    return removedNode;
+    return this.arr;
   }
 }
 

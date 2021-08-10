@@ -45,20 +45,55 @@ function createQueue(req, res) {
           results: isDuplicate,
         });
       } else {
-        currentData["queue"].push({ name: req.params.name, data: [] });
+        currentData["queue"].push({
+          name: req.params.name,
+          data: [],
+        });
         getUserData().set({ currentData });
         res.json({
           message: `Queue with name ${req.params.name} created`,
           error: false,
           code: 200,
-          results: { name: req.params.name, data: [] },
+          results: {
+            name: req.params.name,
+            data: [],
+          },
         });
       }
     })
     .catch((error) => console.log(error));
 }
 
-function enqueue(req, res) {}
+function enqueue(req, res) {
+  getUserData()
+    .get()
+    .then((doc) => {
+      const { currentData } = doc.data();
+      const queueFound = currentData["queue"].find(
+        (queue) => queue["name"] === req.params.name
+      );
+
+      if (queueFound) {
+        const queue = new Queue(queueFound["data"]);
+
+        queueFound["data"] = queue.enqueue(parseInt(req.params.number));
+        getUserData().set({ currentData });
+        res.json({
+          message: `Inserted ${req.params.number} into queue with name ${req.params.name}`,
+          error: false,
+          code: 200,
+          results: queueFound,
+        });
+      } else {
+        res.json({
+          message: `Queue with name ${req.params.name} doesn't exist`,
+          error: false,
+          code: 200,
+          results: queueFound,
+        });
+      }
+    });
+}
 
 function dequeue(req, res) {}
 
