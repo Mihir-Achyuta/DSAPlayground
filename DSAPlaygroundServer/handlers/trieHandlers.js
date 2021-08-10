@@ -1,4 +1,5 @@
 const { Trie } = require("../models/trie");
+const { getUserData } = require("./userDataHandlers");
 let trie = new Trie();
 
 //displays all the words in the trie and the trie structure in JSON
@@ -22,7 +23,49 @@ function resetTrie(req, res) {
 }
 
 //creates the trie
-function createTrie(req, res) {}
+function createTrie(req, res) {
+  getUserData()
+    .get()
+    .then((doc) => {
+      const { currentData } = doc.data();
+      const isDuplicate = currentData["trie"].find(
+        (trie) => trie["name"] === req.params.name
+      );
+
+      if (isDuplicate) {
+        res.json({
+          message: `Trie with name ${req.params.name} already exists`,
+          error: false,
+          code: 200,
+          results: isDuplicate,
+        });
+      } else {
+        currentData["trie"].push({
+          name: req.params.name,
+          data: JSON.stringify({
+            letter: null,
+            children: {},
+            wordEnd: false,
+          }),
+        });
+        getUserData().set({ currentData });
+        res.json({
+          message: `Trie with name ${req.params.name} created`,
+          error: false,
+          code: 200,
+          results: {
+            name: req.params.name,
+            data: JSON.stringify({
+              letter: null,
+              children: {},
+              wordEnd: false,
+            }),
+          },
+        });
+      }
+    })
+    .catch((error) => console.log(error));
+}
 
 //adds a word to the trie
 function addToTrie(req, res) {
@@ -83,7 +126,7 @@ function deleteTrie(req, res) {
         (trie) => trie["name"] === req.params.name
       );
 
-      if (trie) {
+      if (trieFound) {
         currentData["trie"] = currentData["trie"].filter(
           (trie) => trie["name"] !== req.params.name
         );
