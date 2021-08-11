@@ -26,8 +26,7 @@ export default (async function newCli() {
         break;
 
       case "playground":
-        shouldExit = true;
-        playgroundCli();
+        shouldExit = await playgroundCli();
         break;
 
       case "help":

@@ -5,53 +5,49 @@ const { binaryHeapCli } = require("./binaryHeapCli");
 const { errorHandler } = require("../../handlers/error/errorHandler");
 
 async function playgroundCli() {
-  try {
-    let shouldExit = false;
-    console.log("Hi");
+  let shouldExit = false;
 
-    while (!shouldExit) {
-      const { playgroundResponse } = await prompts({
-        type: "text",
-        name: "playgroundResponse",
-        message:
-          "Welcome to the playground. Please enter the data structure playground to enter or enter exit to quit.",
-      });
+  while (!shouldExit) {
+    const { playgroundResponse } = await prompts({
+      type: "text",
+      name: "playgroundResponse",
+      message:
+        "Welcome to the playground. Please enter the data structure playground to enter or enter help for all the commands",
+    });
 
-      switch (playgroundResponse) {
-        case undefined:
-          shouldExit = true;
-          break;
+    switch (playgroundResponse) {
+      case undefined:
+        return true;
 
-        case "exit":
-          shouldExit = true;
-          break;
+      case "exit":
+        return true;
 
-        case "help":
-          playgroundHelp();
-          break;
+      case "back_home":
+        return false;
 
-        case "stack":
-          break;
+      case "help":
+        playgroundHelp();
+        break;
 
-        case "queue":
-          break;
+      case "stack":
+        break;
 
-        case "binary_search_tree":
-          break;
+      case "queue":
+        break;
 
-        case "binary_heap":
-          binaryHeapCli();
-          break;
+      case "binary_search_tree":
+        break;
 
-        case "trie":
-          break;
+      case "binary_heap":
+        shouldExit = await binaryHeapCli();
+        break;
 
-        default:
-          errorHandler("Invalid command entered");
-      }
+      case "trie":
+        break;
+
+      default:
+        errorHandler("Invalid command entered");
     }
-  } catch (error) {
-    errorHandler(error);
   }
 }
 
