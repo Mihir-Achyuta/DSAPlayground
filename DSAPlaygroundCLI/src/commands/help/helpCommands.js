@@ -6,6 +6,7 @@ const {
   binarySearchTreeHelp,
 } = require("./dataStructureHelp/binarySearchTreeHelp");
 const { queueHelp } = require("./dataStructureHelp/queueHelp");
+const { stackHelp } = require("./dataStructureHelp/stackHelp");
 
 module.exports = {
   welcomeHelp,
@@ -13,4 +14,5 @@ module.exports = {
   binaryHeapHelp,
   binarySearchTreeHelp,
   queueHelp,
+  stackHelp,
 };
