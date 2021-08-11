@@ -14,6 +14,7 @@ const { errorHandler } = require("../../handlers/error/errorHandler");
 
 async function playgroundCli() {
   let shouldExit = false;
+  let result;
 
   while (!shouldExit) {
     const { playgroundResponse } = await prompts({
@@ -38,23 +39,29 @@ async function playgroundCli() {
         break;
 
       case "stack":
-        stackCli();
+        shouldExit = await stackCli();
         break;
 
       case "queue":
-        queueCli();
+        result = await queueCli();
+
+        if (result === "exit") return true;
+        shouldExit = result;
         break;
 
       case "binary_search_tree":
-        binarySearchTreeCli();
+        shouldExit = await binarySearchTreeCli();
         break;
 
       case "binary_heap":
-        shouldExit = await binaryHeapCli();
+        result = await binaryHeapCli();
+
+        if (result === "exit") return true;
+        shouldExit = result;
         break;
 
       case "trie":
-        trieCli();
+        shouldExit = await trieCli();
         break;
 
       default:
