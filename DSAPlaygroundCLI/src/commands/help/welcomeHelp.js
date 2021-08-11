@@ -6,7 +6,8 @@ function welcomeHelp() {
   console.log("sign_in                    signs in the user if not already signed in");
   console.log("sign_up                    creates a new user account the user if not already signed in");
   console.log("sign_out                   logs out the user if not already logged out");
-  console.log("playground           enter the dsaPlayground to start experimenting with data structures and algorithms")
+  console.log("playground                 enter the dsaPlayground to start experimenting with data structures and algorithms");
+  console.log("exit                       exits the DSACli");
   console.log("");
 }
 
