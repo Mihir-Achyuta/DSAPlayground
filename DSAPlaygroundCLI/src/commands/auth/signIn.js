@@ -23,6 +23,8 @@ async function signIn() {
   } catch (error) {
     errorHandler(error);
   }
+
+  return false;
 }
 
 module.exports = { signIn };

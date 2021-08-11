@@ -21,6 +21,8 @@ async function signUp() {
   } catch (error) {
     errorHandler(error);
   }
+
+  return false;
 }
 
 module.exports = { signUp };

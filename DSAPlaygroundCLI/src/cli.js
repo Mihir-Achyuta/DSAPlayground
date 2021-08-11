@@ -34,15 +34,15 @@ export default (async function newCli() {
         break;
 
       case "sign_in":
-        signIn();
+        shouldExit = await signIn();
         break;
 
       case "sign_up":
-        signUp();
+        shouldExit = await signUp();
         break;
 
       case "sign_out":
-        signOut();
+        shouldExit = await signOut();
         break;
 
       default:

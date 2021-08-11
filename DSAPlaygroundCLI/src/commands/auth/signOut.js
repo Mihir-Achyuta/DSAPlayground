@@ -19,6 +19,8 @@ async function signOut() {
   } catch (error) {
     errorHandler(error);
   }
+
+  return false;
 }
 
 module.exports = { signOut };
