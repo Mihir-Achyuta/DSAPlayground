@@ -1,4 +1,6 @@
-const { welcomeHelp } = require("./welcomeHelp");
-const { playgroundHelp } = require("./playgroundHelp");
+const { welcomeHelp } = require("./interfaceHelp/welcomeHelp");
+const { playgroundHelp } = require("./interfaceHelp/playgroundHelp");
 
-module.exports = { welcomeHelp, playgroundHelp };
+const { binaryHeapHelp } = require("./dataStructureHelp/binaryHeapHelp");
+
+module.exports = { welcomeHelp, playgroundHelp, binaryHeapHelp };
