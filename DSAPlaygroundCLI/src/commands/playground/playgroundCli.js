@@ -1,7 +1,15 @@
 const prompts = require("prompts");
 
-const { playgroundHelp } = require("../help/playgroundHelp");
-const { binaryHeapCli } = require("./binaryHeapCli");
+const { playgroundHelp } = require("../help/interfaceHelp/playgroundHelp");
+
+const { binaryHeapCli } = require("./dataStructureCli/binaryHeapCli");
+const {
+  binarySearchTreeCli,
+} = require("./dataStructureCli/binarySearchTreeCli");
+const { queueCli } = require("./dataStructureCli/queueCli");
+const { stackCli } = require("./dataStructureCli/stackCli");
+const { trieCli } = require("./dataStructureCli/trieCli");
+
 const { errorHandler } = require("../../handlers/error/errorHandler");
 
 async function playgroundCli() {
@@ -30,12 +38,15 @@ async function playgroundCli() {
         break;
 
       case "stack":
+        stackCli();
         break;
 
       case "queue":
+        queueCli();
         break;
 
       case "binary_search_tree":
+        binarySearchTreeCli();
         break;
 
       case "binary_heap":
@@ -43,6 +54,7 @@ async function playgroundCli() {
         break;
 
       case "trie":
+        trieCli();
         break;
 
       default:

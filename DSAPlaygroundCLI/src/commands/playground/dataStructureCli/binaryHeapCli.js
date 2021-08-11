@@ -1,6 +1,6 @@
 const prompts = require("prompts");
 
-const { errorHandler } = require("../../handlers/error/errorHandler");
+const { errorHandler } = require("../../../handlers/error/errorHandler");
 
 function binaryHeapCli() {
   try {

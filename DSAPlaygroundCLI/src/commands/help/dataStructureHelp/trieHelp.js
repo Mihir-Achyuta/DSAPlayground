@@ -1,5 +1,5 @@
 // prettier-ignore
-function stackHelp() {
+function trieHelp() {
     console.log("");
     console.log("Commands are done by data_structure_name data_structure_command (and data_structure_value if needed) for all commands");
     console.log("All Possible Stack Commands: ");
@@ -16,4 +16,4 @@ function stackHelp() {
     console.log("");
 }
 
-module.exports = { stackHelp };
+module.exports = { trieHelp };
