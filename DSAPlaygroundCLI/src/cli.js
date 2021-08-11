@@ -48,7 +48,7 @@ export default (async function newCli() {
       default:
         errorHandler(
           "Invalid command entered. Please refer to the help guide for all the commands",
-          true
+          "welcome"
         );
     }
   }

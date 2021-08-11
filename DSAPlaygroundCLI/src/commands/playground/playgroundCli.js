@@ -58,7 +58,7 @@ async function playgroundCli() {
         break;
 
       default:
-        errorHandler("Invalid command entered");
+        errorHandler("Invalid command entered", "playground");
     }
   }
 }
