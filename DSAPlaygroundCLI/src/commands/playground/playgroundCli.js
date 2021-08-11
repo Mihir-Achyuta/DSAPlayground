@@ -7,6 +7,7 @@ const { errorHandler } = require("../../handlers/error/errorHandler");
 async function playgroundCli() {
   try {
     let shouldExit = false;
+    console.log("Hi");
 
     while (!shouldExit) {
       const { playgroundResponse } = await prompts({
@@ -17,16 +18,16 @@ async function playgroundCli() {
       });
 
       switch (playgroundResponse) {
+        case undefined:
+          shouldExit = true;
+          break;
+
         case "exit":
           shouldExit = true;
-          console.log("exiting");
           break;
 
         case "help":
           playgroundHelp();
-          break;
-
-        case "singly_linked_list":
           break;
 
         case "stack":

@@ -25,6 +25,11 @@ export default (async function newCli() {
         shouldExit = true;
         break;
 
+      case "playground":
+        shouldExit = true;
+        playgroundCli();
+        break;
+
       case "help":
         welcomeHelp();
         break;
@@ -39,10 +44,6 @@ export default (async function newCli() {
 
       case "sign_out":
         signOut();
-        break;
-
-      case "playground":
-        playgroundCli();
         break;
 
       default:
