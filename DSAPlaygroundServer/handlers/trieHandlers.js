@@ -172,16 +172,36 @@ function searchInTrie(req, res) {
 
 //gets all the words in the trie starting with a prefix
 function autoCompleteTrie(req, res) {
-  let wordToAutocomplete = req.body.specifiedWord;
-  let { found, words } = trie.autocomplete(wordToAutocomplete);
-  let message = found
-    ? `Prefix ${wordToAutocomplete} generated these words from the trie: ${words} `
-    : `Prefix ${wordToAutocomplete} generated no words from the trie`;
+  getUserData()
+    .get()
+    .then((doc) => {
+      const { currentData } = doc.data();
+      const trieFound = currentData["trie"].find(
+        (trie) => trie["name"] === req.params.name
+      );
 
-  res.json({
-    succeeded: true,
-    message: message,
-  });
+      if (trieFound) {
+        const trie = new Trie(JSON.parse(trieFound["data"]));
+        const { found, words } = trie.autocomplete(req.params.word);
+
+        res.json({
+          message: found
+            ? `Prefix ${req.params.word} generated these words from the trie: ${words} `
+            : `Prefix ${req.params.word} generated no words from the trie`,
+          error: false,
+          code: 200,
+          results: trieFound,
+        });
+      } else {
+        res.json({
+          message: `Trie with name ${req.params.name} doesn't exist`,
+          error: false,
+          code: 200,
+          results: trieFound,
+        });
+      }
+    })
+    .catch((error) => console.log(error));
 }
 
 //deletes trie from data
