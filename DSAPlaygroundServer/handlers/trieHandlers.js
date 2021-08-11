@@ -159,15 +159,36 @@ function deleteFromTrie(req, res) {
 
 //checks if a word is in the trie and lets user know result
 function searchInTrie(req, res) {
-  let wordToFind = req.body.specifiedWord;
-  let wordFound = trie.search(wordToFind);
+  getUserData()
+    .get()
+    .then((doc) => {
+      const { currentData } = doc.data();
+      const trieFound = currentData["trie"].find(
+        (trie) => trie["name"] === req.params.name
+      );
 
-  res.json({
-    succeeded: true,
-    message: `Word ${wordToFind} is${
-      wordFound === false ? " not" : ""
-    } in trie`,
-  });
+      if (trieFound) {
+        const trie = new Trie(JSON.parse(trieFound["data"]));
+        const wordFound = trie.search(req.params.word);
+
+        res.json({
+          message: `Word ${req.params.word} is${
+            wordFound === false ? " not" : ""
+          } in trie`,
+          error: false,
+          code: 200,
+          results: trieFound,
+        });
+      } else {
+        res.json({
+          message: `Trie with name ${req.params.name} doesn't exist`,
+          error: false,
+          code: 200,
+          results: trieFound,
+        });
+      }
+    })
+    .catch((error) => console.log(error));
 }
 
 //gets all the words in the trie starting with a prefix
