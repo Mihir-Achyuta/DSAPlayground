@@ -232,8 +232,8 @@ class Trie {
   //resets the trie by setting the root node to null
   reset() {
     this.rootNode = new TrieNode(null);
-    //save the updated trie node in json database
-    fs.writeFileSync("trieDB.json", JSON.stringify(this.rootNode));
+
+    return this.rootNode;
   }
 }
 

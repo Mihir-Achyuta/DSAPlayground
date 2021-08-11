@@ -35,12 +35,35 @@ function displayTrie(req, res) {
 
 //resets the trie to have no word along with the json database file
 function resetTrie(req, res) {
-  trie.reset();
+  getUserData()
+    .get()
+    .then((doc) => {
+      const { currentData } = doc.data();
+      const trieFound = currentData["trie"].find(
+        (trie) => trie["name"] === req.params.name
+      );
 
-  res.json({
-    succeeded: true,
-    message: `The trie has been cleared and resetted `,
-  });
+      if (trieFound) {
+        const trie = new Trie(JSON.parse(trieFound["data"]));
+
+        trieFound["data"] = JSON.stringify(trie.reset());
+        getUserData().set({ currentData });
+        res.json({
+          message: `The trie with name ${req.params.name} has been cleared and resetted`,
+          error: false,
+          code: 200,
+          results: trieFound,
+        });
+      } else {
+        res.json({
+          message: `Trie with name ${req.params.name} doesn't exist`,
+          error: false,
+          code: 200,
+          results: trieFound,
+        });
+      }
+    })
+    .catch((error) => console.log(error));
 }
 
 //creates the trie
