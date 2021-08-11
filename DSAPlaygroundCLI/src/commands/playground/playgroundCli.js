@@ -39,7 +39,10 @@ async function playgroundCli() {
         break;
 
       case "stack":
-        shouldExit = await stackCli();
+        result = await stackCli();
+
+        if (result === "exit") return true;
+        shouldExit = result;
         break;
 
       case "queue":
@@ -50,7 +53,10 @@ async function playgroundCli() {
         break;
 
       case "binary_search_tree":
-        shouldExit = await binarySearchTreeCli();
+        result = await binarySearchTreeCli();
+
+        if (result === "exit") return true;
+        shouldExit = result;
         break;
 
       case "binary_heap":
@@ -61,7 +67,10 @@ async function playgroundCli() {
         break;
 
       case "trie":
-        shouldExit = await trieCli();
+        result = await trieCli();
+
+        if (result === "exit") return true;
+        shouldExit = result;
         break;
 
       default:
