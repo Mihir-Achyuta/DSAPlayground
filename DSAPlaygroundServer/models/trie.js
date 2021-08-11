@@ -114,7 +114,6 @@ class Trie {
     else if (ownBranch) {
       let firstChild = word.substring(0, 1);
       delete this.rootNode["children"][firstChild];
-      // fs.writeFileSync("trieDB.json", JSON.stringify(this.rootNode));
     }
     //if the word has multiple branches and is not/has no prefix then we go from the end and delete until the parent node has children
     //we dont want to delete any other children nodes aside from the one we are deleting
@@ -126,8 +125,7 @@ class Trie {
       let removedChild = mostDepth["word"][mostDepth["depth"]];
       delete mostDepth["node"]["children"][removedChild];
     }
-    //save the updated trie node in json database
-    fs.writeFileSync("trieDB.json", JSON.stringify(this.rootNode));
+
     return true;
   }
 
@@ -144,8 +142,6 @@ class Trie {
     }
     if (currNode["wordEnd"]) {
       currNode["wordEnd"] = false;
-      //save the updated trie node in json database
-      fs.writeFileSync("trieDB.json", JSON.stringify(this.rootNode));
       return true;
     } else {
       return false;

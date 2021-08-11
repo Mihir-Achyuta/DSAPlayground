@@ -146,15 +146,38 @@ function addToTrie(req, res) {
 
 //deletes a word from the trie if it is present
 function deleteFromTrie(req, res) {
-  let wordToDelete = req.body.specifiedWord;
-  let isDeleted = trie.delete(wordToDelete);
+  getUserData()
+    .get()
+    .then((doc) => {
+      const { currentData } = doc.data();
+      const trieFound = currentData["trie"].find(
+        (trie) => trie["name"] === req.params.name
+      );
 
-  res.json({
-    succeeded: true,
-    message: isDeleted
-      ? `Word ${wordToDelete} Deleted from trie`
-      : `Word ${wordToDelete} was not found in the trie`,
-  });
+      if (trieFound) {
+        const trie = new Trie(JSON.parse(trieFound["data"]));
+        const isDeleted = trie.delete(req.params.word);
+
+        trieFound["data"] = JSON.stringify(trie.rootNode);
+        getUserData().set({ currentData });
+        res.json({
+          message: isDeleted
+            ? `Word ${req.params.word} Deleted from trie`
+            : `Word ${req.params.word} was not found in the trie`,
+          error: false,
+          code: 200,
+          results: trieFound,
+        });
+      } else {
+        res.json({
+          message: `Trie with name ${req.params.name} doesn't exist`,
+          error: false,
+          code: 200,
+          results: trieFound,
+        });
+      }
+    })
+    .catch((error) => console.log(error));
 }
 
 //checks if a word is in the trie and lets user know result
