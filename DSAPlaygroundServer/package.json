@@ -1,9 +1,10 @@
 {
-  "name": "trieserver",
+  "name": "DSAPlaygroundServer",
   "version": "1.0.0",
-  "description": "Server for slingshot take home challenge for trie",
+  "description": "Server for providing data structures and algorithms accesible via a CLI",
   "main": "server.js",
   "scripts": {
+    "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Mihir Achyuta",
