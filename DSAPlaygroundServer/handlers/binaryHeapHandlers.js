@@ -139,7 +139,7 @@ function extractFromHeap(req, res) {
         heapFound["data"] = maxHeap.values;
         getUserData().set({ currentData });
         res.json({
-          message: `Extracted ${number} into heap with name ${req.params.name}`,
+          message: `Extracted ${number} from heap with name ${req.params.name}`,
           error: false,
           code: 200,
           results: heapFound,
