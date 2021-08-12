@@ -7,7 +7,7 @@ const { errorHandler } = require("../../../handlers/error/errorHandler");
 async function queueCli() {
   while (true) {
     const { data } = await axios.default.get(
-      "http://localhost:3001/names/queue"
+      "https://z575cc22e-za2982c25-gtw.qovery.io/names/queue"
     );
     const { queueResponse } = await prompts([
       {
@@ -55,14 +55,14 @@ async function queueCli() {
         //display queue
         if (queueCommand === "display") {
           const displayData = await axios.default.get(
-            `http://localhost:3001/displayqueue/${queueResponse}`
+            `https://z575cc22e-za2982c25-gtw.qovery.io/displayqueue/${queueResponse}`
           );
           console.log(displayData.data.message);
         }
         //delete queue
         else if (queueCommand === "delete") {
           const deleteData = await axios.default.delete(
-            `http://localhost:3001/deletequeue/${queueResponse}`
+            `https://z575cc22e-za2982c25-gtw.qovery.io/deletequeue/${queueResponse}`
           );
           console.log(deleteData.data.message);
         }
@@ -76,12 +76,12 @@ async function queueCli() {
             },
           ]);
           const enqueueData = await axios.default.post(
-            `http://localhost:3001/enqueue/${queueResponse}/${queueValue}`
+            `https://z575cc22e-za2982c25-gtw.qovery.io/enqueue/${queueResponse}/${queueValue}`
           );
           console.log(enqueueData.data.message);
         } else if (queueCommand === "dequeue") {
           const dequeueData = await axios.default.post(
-            `http://localhost:3001/dequeue/${queueResponse}`
+            `https://z575cc22e-za2982c25-gtw.qovery.io/dequeue/${queueResponse}`
           );
           console.log(dequeueData.data.message);
         }
@@ -93,7 +93,7 @@ async function queueCli() {
       //queue not in array so add it
       else {
         const createData = await axios.default.post(
-          `http://localhost:3001/createqueue/${queueResponse}`
+          `https://z575cc22e-za2982c25-gtw.qovery.io/createqueue/${queueResponse}`
         );
         console.log(createData.data.message);
       }

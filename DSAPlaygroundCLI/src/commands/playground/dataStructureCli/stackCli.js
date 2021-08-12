@@ -7,7 +7,7 @@ const { errorHandler } = require("../../../handlers/error/errorHandler");
 async function stackCli() {
   while (true) {
     const { data } = await axios.default.get(
-      "http://localhost:3001/names/stack"
+      "https://z575cc22e-za2982c25-gtw.qovery.io/names/stack"
     );
     const { stackResponse } = await prompts([
       {
@@ -55,14 +55,14 @@ async function stackCli() {
         //display stack
         if (stackCommand === "display") {
           const displayData = await axios.default.get(
-            `http://localhost:3001/displaystack/${stackResponse}`
+            `https://z575cc22e-za2982c25-gtw.qovery.io/displaystack/${stackResponse}`
           );
           console.log(displayData.data.message);
         }
         //delete stack
         else if (stackCommand === "delete") {
           const deleteData = await axios.default.delete(
-            `http://localhost:3001/deletestack/${stackResponse}`
+            `https://z575cc22e-za2982c25-gtw.qovery.io/deletestack/${stackResponse}`
           );
           console.log(deleteData.data.message);
         }
@@ -76,12 +76,12 @@ async function stackCli() {
             },
           ]);
           const pushData = await axios.default.post(
-            `http://localhost:3001/pushstack/${stackResponse}/${stackValue}`
+            `https://z575cc22e-za2982c25-gtw.qovery.io/pushstack/${stackResponse}/${stackValue}`
           );
           console.log(pushData.data.message);
         } else if (stackCommand === "pop") {
           const popData = await axios.default.post(
-            `http://localhost:3001/popstack/${stackResponse}`
+            `https://z575cc22e-za2982c25-gtw.qovery.io/popstack/${stackResponse}`
           );
           console.log(popData.data.message);
         }
@@ -93,7 +93,7 @@ async function stackCli() {
       //stack not in array so add it
       else {
         const createData = await axios.default.post(
-          `http://localhost:3001/createstack/${stackResponse}`
+          `https://z575cc22e-za2982c25-gtw.qovery.io/createstack/${stackResponse}`
         );
         console.log(createData.data.message);
       }

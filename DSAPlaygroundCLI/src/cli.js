@@ -28,7 +28,7 @@ export default (async function newCli() {
 
       case "playground":
         const { data } = await axios.default.get(
-          "http://localhost:3001/currentuser"
+          "https://z575cc22e-za2982c25-gtw.qovery.io/currentuser"
         );
 
         if (data.results === null) {
