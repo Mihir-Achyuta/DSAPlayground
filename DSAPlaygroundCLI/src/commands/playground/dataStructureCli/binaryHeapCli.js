@@ -46,17 +46,56 @@ async function binaryHeapCli() {
           {
             type: "text",
             name: "heapCommand",
-            message: "Please enter a command for the selected heap",
+            message: `Please enter a command for the selected heap ${heapResponse}`,
           },
         ]);
-        console.log(heapCommand);
+
+        //display heap
+        if (heapCommand === "display") {
+          const displayData = await axios.default.get(
+            `http://localhost:3001/displayheap/${heapResponse}`
+          );
+          console.log(displayData.data.message);
+        }
+        //delete heap
+        else if (heapCommand === "delete") {
+          const deleteData = await axios.default.delete(
+            `http://localhost:3001/deleteheap/${heapResponse}`
+          );
+          console.log(deleteData.data.message);
+        }
+        //extract from heap
+        else if (heapCommand === "extract") {
+          const extractData = await axios.default.post(
+            `http://localhost:3001/extractheap/${heapResponse}`
+          );
+          console.log(extractData.data.message);
+        }
+        //insert into heap
+        else if (heapCommand === "insert") {
+          const { heapValue } = await prompts([
+            {
+              type: "number",
+              name: "heapValue",
+              message: `Please enter the value for heap command ${heapCommand}`,
+            },
+          ]);
+          const insertData = await axios.default.post(
+            `http://localhost:3001/insertheap/${heapResponse}/${heapValue}`
+          );
+          console.log(insertData.data.message);
+        }
+        //error handler
+        else {
+          errorHandler("Invalid command entered", "heap");
+        }
       }
       //heap not in array so add it
       else {
-        const { data } = await axios.default.post(
+        const createData = await axios.default.post(
           `http://localhost:3001/createheap/${heapResponse}`
         );
-        console.log(data.message);
+        console.log(createData.data.message);
       }
     }
   }
