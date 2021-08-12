@@ -5,23 +5,11 @@ const { binaryHeapHelp } = require("../../help/helpCommands");
 const { errorHandler } = require("../../../handlers/error/errorHandler");
 
 async function binaryHeapCli() {
-  const heapCommandNeeded = (heapResponse) => {
-    if (
-      heapResponse === undefined ||
-      heapResponse === "exit" ||
-      heapResponse === "back_playground" ||
-      heapResponse === "help"
-    ) {
-      return false;
-    }
-    return true;
-  };
-
   while (true) {
     const { data } = await axios.default.get(
       "http://localhost:3001/names/binary_heap"
     );
-    const { heapResponse, heapCommand } = await prompts([
+    const { heapResponse } = await prompts([
       {
         type: "text",
         name: "heapResponse",
@@ -32,23 +20,44 @@ async function binaryHeapCli() {
       }
       `,
       },
-      {
-        type: (prev) => (heapCommandNeeded(prev) ? "text" : null),
-        name: "heapCommand",
-        message: "Please enter the command for the selected heap",
-      },
     ]);
 
+    //undefined response just exit
     if (heapResponse === undefined) {
       return "exit";
-    } else if (heapResponse === "exit") {
+    }
+    //if user enters exit then exit cli
+    else if (heapResponse === "exit") {
       return "exit";
-    } else if (heapResponse === "back_playground") {
+    }
+    //if user wants to go back
+    else if (heapResponse === "back_playground") {
       return false;
-    } else if (heapResponse === "help") {
+    }
+    //if user wants to see the help commands
+    else if (heapResponse === "help") {
       binaryHeapHelp();
-    } else {
-      // errorHandler("Invalid command entered", "heap");
+    }
+    //if user enters a heap name
+    else {
+      //heap in array so ask for command
+      if (data.results.includes(heapResponse)) {
+        const { heapCommand } = await prompts([
+          {
+            type: "text",
+            name: "heapCommand",
+            message: "Please enter a command for the selected heap",
+          },
+        ]);
+        console.log(heapCommand);
+      }
+      //heap not in array so add it
+      else {
+        const { data } = await axios.default.post(
+          `http://localhost:3001/createheap/${heapResponse}`
+        );
+        console.log(data.message);
+      }
     }
   }
 }
