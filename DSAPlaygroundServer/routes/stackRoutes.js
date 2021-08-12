@@ -10,7 +10,7 @@ const {
   deleteStack,
 } = require("../handlers/stackHandlers");
 
-router.get("/displaystack:name", isAuthenticated, displayStack);
+router.get("/displaystack/:name", isAuthenticated, displayStack);
 
 router.post("/createstack/:name", isAuthenticated, createStack);
 router.post("/pushstack/:name/:number", isAuthenticated, pushStack);
