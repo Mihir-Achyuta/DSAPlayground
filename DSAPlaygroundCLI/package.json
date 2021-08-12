@@ -1,7 +1,7 @@
 {
-  "name": "@mihirachyuta/triecli",
-  "version": "1.0.4",
-  "description": "The cli for the hosted trie",
+  "name": "dsacli",
+  "version": "1.0.0",
+  "description": "Data Structures and Algorithms accessible via a CLI",
   "main": "src/cli.js",
   "bin": {
     "triecli": "bin/CliScript"
