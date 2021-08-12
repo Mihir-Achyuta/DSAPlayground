@@ -1,4 +1,5 @@
 const prompts = require("prompts");
+const axios = require("axios");
 
 const { welcomeHelp } = require("./commands/help/helpCommands");
 const { signIn, signUp, signOut } = require("./commands/auth/authCommands");
@@ -26,7 +27,15 @@ export default (async function newCli() {
         break;
 
       case "playground":
-        shouldExit = await playgroundCli();
+        const { data } = await axios.default.get(
+          "http://localhost:3001/currentuser"
+        );
+
+        if (data.results === null) {
+          console.log("Please sign in or sign up to access playground");
+        } else {
+          shouldExit = await playgroundCli();
+        }
         break;
 
       case "help":
