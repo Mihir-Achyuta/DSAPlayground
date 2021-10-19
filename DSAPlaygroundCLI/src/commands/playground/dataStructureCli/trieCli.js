@@ -7,7 +7,7 @@ const { errorHandler } = require("../../../handlers/error/errorHandler");
 async function trieCli() {
   while (true) {
     const { data } = await axios.default.get(
-      "https://z575cc22e-za2982c25-gtw.qovery.io/names/trie"
+      "https://shielded-fortress-73492.herokuapp.com/names/trie"
     );
     const { trieResponse } = await prompts([
       {
@@ -55,21 +55,21 @@ async function trieCli() {
         //display trie
         if (trieCommand === "display") {
           const displayData = await axios.default.get(
-            `https://z575cc22e-za2982c25-gtw.qovery.io/displaytrie/${trieResponse}`
+            `https://shielded-fortress-73492.herokuapp.com/displaytrie/${trieResponse}`
           );
           console.log(displayData.data.message);
         }
         //reset trie
         else if (trieCommand === "reset") {
           const resetData = await axios.default.get(
-            `https://z575cc22e-za2982c25-gtw.qovery.io/resettrie/${trieResponse}`
+            `https://shielded-fortress-73492.herokuapp.com/resettrie/${trieResponse}`
           );
           console.log(resetData.data.message);
         }
         //delete trie
         else if (trieCommand === "delete") {
           const deleteData = await axios.default.delete(
-            `https://z575cc22e-za2982c25-gtw.qovery.io/deletetrie/${trieResponse}`
+            `https://shielded-fortress-73492.herokuapp.com/deletetrie/${trieResponse}`
           );
           console.log(deleteData.data.message);
         }
@@ -88,7 +88,7 @@ async function trieCli() {
             },
           ]);
           const trieData = await axios.default.post(
-            `https://z575cc22e-za2982c25-gtw.qovery.io/${
+            `https://shielded-fortress-73492.herokuapp.com/${
               trieCommand === "delete_word" ? "delete" : trieCommand
             }trie/${trieResponse}/${trieValue}`
           );
@@ -102,7 +102,7 @@ async function trieCli() {
       //trie not in array so add it
       else {
         const createData = await axios.default.post(
-          `https://z575cc22e-za2982c25-gtw.qovery.io/createtrie/${trieResponse}`
+          `https://shielded-fortress-73492.herokuapp.com/createtrie/${trieResponse}`
         );
         console.log(createData.data.message);
       }

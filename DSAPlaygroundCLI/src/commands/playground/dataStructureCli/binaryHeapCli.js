@@ -7,7 +7,7 @@ const { errorHandler } = require("../../../handlers/error/errorHandler");
 async function binaryHeapCli() {
   while (true) {
     const { data } = await axios.default.get(
-      "https://z575cc22e-za2982c25-gtw.qovery.io/names/binary_heap"
+      "https://shielded-fortress-73492.herokuapp.com/names/binary_heap"
     );
     const { heapResponse } = await prompts([
       {
@@ -53,21 +53,21 @@ async function binaryHeapCli() {
         //display heap
         if (heapCommand === "display") {
           const displayData = await axios.default.get(
-            `https://z575cc22e-za2982c25-gtw.qovery.io/displayheap/${heapResponse}`
+            `https://shielded-fortress-73492.herokuapp.com/displayheap/${heapResponse}`
           );
           console.log(displayData.data.message);
         }
         //delete heap
         else if (heapCommand === "delete") {
           const deleteData = await axios.default.delete(
-            `https://z575cc22e-za2982c25-gtw.qovery.io/deleteheap/${heapResponse}`
+            `https://shielded-fortress-73492.herokuapp.com/deleteheap/${heapResponse}`
           );
           console.log(deleteData.data.message);
         }
         //extract from heap
         else if (heapCommand === "extract") {
           const extractData = await axios.default.post(
-            `https://z575cc22e-za2982c25-gtw.qovery.io/extractheap/${heapResponse}`
+            `https://shielded-fortress-73492.herokuapp.com/extractheap/${heapResponse}`
           );
           console.log(extractData.data.message);
         }
@@ -81,7 +81,7 @@ async function binaryHeapCli() {
             },
           ]);
           const insertData = await axios.default.post(
-            `https://z575cc22e-za2982c25-gtw.qovery.io/insertheap/${heapResponse}/${heapValue}`
+            `https://shielded-fortress-73492.herokuapp.com/insertheap/${heapResponse}/${heapValue}`
           );
           console.log(insertData.data.message);
         }
@@ -93,7 +93,7 @@ async function binaryHeapCli() {
       //heap not in array so add it
       else {
         const createData = await axios.default.post(
-          `https://z575cc22e-za2982c25-gtw.qovery.io/createheap/${heapResponse}`
+          `https://shielded-fortress-73492.herokuapp.com/createheap/${heapResponse}`
         );
         console.log(createData.data.message);
       }

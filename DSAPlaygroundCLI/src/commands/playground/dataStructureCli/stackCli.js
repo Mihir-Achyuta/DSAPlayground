@@ -7,7 +7,7 @@ const { errorHandler } = require("../../../handlers/error/errorHandler");
 async function stackCli() {
   while (true) {
     const { data } = await axios.default.get(
-      "https://z575cc22e-za2982c25-gtw.qovery.io/names/stack"
+      "https://shielded-fortress-73492.herokuapp.com/names/stack"
     );
     const { stackResponse } = await prompts([
       {
@@ -55,14 +55,14 @@ async function stackCli() {
         //display stack
         if (stackCommand === "display") {
           const displayData = await axios.default.get(
-            `https://z575cc22e-za2982c25-gtw.qovery.io/displaystack/${stackResponse}`
+            `https://shielded-fortress-73492.herokuapp.com/displaystack/${stackResponse}`
           );
           console.log(displayData.data.message);
         }
         //delete stack
         else if (stackCommand === "delete") {
           const deleteData = await axios.default.delete(
-            `https://z575cc22e-za2982c25-gtw.qovery.io/deletestack/${stackResponse}`
+            `https://shielded-fortress-73492.herokuapp.com/deletestack/${stackResponse}`
           );
           console.log(deleteData.data.message);
         }
@@ -76,12 +76,12 @@ async function stackCli() {
             },
           ]);
           const pushData = await axios.default.post(
-            `https://z575cc22e-za2982c25-gtw.qovery.io/pushstack/${stackResponse}/${stackValue}`
+            `https://shielded-fortress-73492.herokuapp.com/pushstack/${stackResponse}/${stackValue}`
           );
           console.log(pushData.data.message);
         } else if (stackCommand === "pop") {
           const popData = await axios.default.post(
-            `https://z575cc22e-za2982c25-gtw.qovery.io/popstack/${stackResponse}`
+            `https://shielded-fortress-73492.herokuapp.com/popstack/${stackResponse}`
           );
           console.log(popData.data.message);
         }
@@ -93,7 +93,7 @@ async function stackCli() {
       //stack not in array so add it
       else {
         const createData = await axios.default.post(
-          `https://z575cc22e-za2982c25-gtw.qovery.io/createstack/${stackResponse}`
+          `https://shielded-fortress-73492.herokuapp.com/createstack/${stackResponse}`
         );
         console.log(createData.data.message);
       }

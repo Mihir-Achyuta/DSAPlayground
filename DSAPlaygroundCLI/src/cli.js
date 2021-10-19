@@ -28,7 +28,7 @@ export default (async function newCli() {
 
       case "playground":
         const { data } = await axios.default.get(
-          "https://z575cc22e-za2982c25-gtw.qovery.io/currentuser"
+          "https://shielded-fortress-73492.herokuapp.com/currentuser"
         );
 
         if (data.results === null) {

@@ -7,7 +7,7 @@ const { errorHandler } = require("../../../handlers/error/errorHandler");
 async function binarySearchTreeCli() {
   while (true) {
     const { data } = await axios.default.get(
-      "https://z575cc22e-za2982c25-gtw.qovery.io/names/binary_search_tree"
+      "https://shielded-fortress-73492.herokuapp.com/names/binary_search_tree"
     );
     const { bstResponse } = await prompts([
       {
@@ -53,14 +53,14 @@ async function binarySearchTreeCli() {
         //display bst
         if (bstCommand === "display") {
           const displayData = await axios.default.get(
-            `https://z575cc22e-za2982c25-gtw.qovery.io/displaybst/${bstResponse}`
+            `https://shielded-fortress-73492.herokuapp.com/displaybst/${bstResponse}`
           );
           console.log(displayData.data.message);
         }
         //delete bst
         else if (bstCommand === "delete") {
           const deleteData = await axios.default.delete(
-            `https://z575cc22e-za2982c25-gtw.qovery.io/deletebst/${bstResponse}`
+            `https://shielded-fortress-73492.herokuapp.com/deletebst/${bstResponse}`
           );
           console.log(deleteData.data.message);
         }
@@ -74,7 +74,7 @@ async function binarySearchTreeCli() {
             },
           ]);
           const searchData = await axios.default.get(
-            `https://z575cc22e-za2982c25-gtw.qovery.io/searchbst/${bstResponse}/${bstValue}`
+            `https://shielded-fortress-73492.herokuapp.com/searchbst/${bstResponse}/${bstValue}`
           );
           console.log(searchData.data.message);
         }
@@ -88,7 +88,7 @@ async function binarySearchTreeCli() {
             },
           ]);
           const insertData = await axios.default.post(
-            `https://z575cc22e-za2982c25-gtw.qovery.io/insertbst/${bstResponse}/${bstValue}`
+            `https://shielded-fortress-73492.herokuapp.com/insertbst/${bstResponse}/${bstValue}`
           );
           console.log(insertData.data.message);
         }
@@ -100,7 +100,7 @@ async function binarySearchTreeCli() {
       //bst not in array so add it
       else {
         const createData = await axios.default.post(
-          `https://z575cc22e-za2982c25-gtw.qovery.io/createbst/${bstResponse}`
+          `https://shielded-fortress-73492.herokuapp.com/createbst/${bstResponse}`
         );
         console.log(createData.data.message);
       }

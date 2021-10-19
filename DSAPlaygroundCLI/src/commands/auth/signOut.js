@@ -4,12 +4,12 @@ const { errorHandler } = require("../../handlers/error/errorHandler");
 async function signOut() {
   try {
     const { data } = await axios.default.get(
-      "https://z575cc22e-za2982c25-gtw.qovery.io/currentuser"
+      "https://shielded-fortress-73492.herokuapp.com/currentuser"
     );
 
     if (data["results"] !== null) {
       const userData = await axios.default.post(
-        "https://z575cc22e-za2982c25-gtw.qovery.io/signout"
+        "https://shielded-fortress-73492.herokuapp.com/signout"
       );
 
       console.log(userData.data.message);
