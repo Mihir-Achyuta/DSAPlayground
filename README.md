@@ -1,79 +1,80 @@
-# Hosted Trie
+# DSAPlayground
 
-- This is a globally hosted Trie accessible via NPM and hosted on Heroku. Both CLI and Server are built with Node.js
+- This project(playground) makes data structures and algorithms accessible via a Command Line Interface. 
 
-# Table of Contents
+- You can store various data structures in the cloud and come back to them when needed to perform more operations on them with all progress saved.
 
-- The project is split into 2 parts :
-  - The Trie Client CLI
-  - The Trie Server
+- Just install it using [NPM](https://www.npmjs.com/package/dsacli), create an account on the CLI, and get started. 
 
-# CLI Installation
+## Installation
 
-**Notice: The server was hosted on a [Heroku](https://www.heroku.com) Free Dyno so it will take about 15 seconds to run the first command as the dyno has to [spin/wake up](https://devcenter.heroku.com/articles/free-dyno-hours). All other resultant commands will not have a delay like this.**
-
-- The CLI was built with [Node](http://www.node.com/) +[Express](https://expressjs.com/) and called RESTful API Requests with [Axios](https://www.npmjs.com/package/axios).
-
-- It was distributed through [npm](https://www.npmjs.com/package/@mihirachyuta/triecli) for users to download via the install command
-
-- Use the package manager [npm](https://www.npmjs.com/package/@mihirachyuta/triecli) to install the Trie CLI Globally.
+Use the package manager [NPM](https://www.npmjs.com/) to install [DSAPlayground](https://www.npmjs.com/package/dsacli) globally.
 
 ```bash
-npm i -g @mihirachyuta/triecli
+npm i -g dsacli
 ```
 
-# CLI Usage
+## Usage
+![DSAPlaygroundPic!](https://i.imgur.com/3eLzvfq.png)
 
-```bash
-# returns all the possible commands for the trie
-triecli
+Once installing the package globally, type in the package name to activate the Command Line Interface with the possible commands here accessible via the help function(can find out all command by typing help at any time):
 
-#adds a word to the trie
-triecli --add randword
+```javascript
+function welcomeHelp() {
+  console.log("");
+  console.log("Commands are done by command_name for all commands");
+  console.log("All Possible Initial Commands: ");
+  console.log("exit                       exits the DSACli");
+  console.log("playground                 enter the dsaPlayground to start experimenting with data structures and algorithms");
+  console.log("sign_in                    signs in the user if not already signed in");
+  console.log("sign_up                    creates a new user account the user if not already signed in");
+  console.log("sign_out                   logs out the user if not already logged out");
+  console.log("");
+}
 
-#deletes a word from the trie if it is present
-triecli --delete randword
-
-#checks if a word is in the trie and lets user know result
-triecli --search randword
-
-#gets all the words in the trie starting with a prefix
-triecli --autocomplete randword
-
-#displays all the words in the trie and the trie structure in JSON
-triecli --display
-
-#resets the trie to have no words along with the json database file
-triecli --reset
 ```
 
-# Server
+A user must sign in/sign up to enter the playground so once you enter the playground, here are all the possible data structures commands available:
 
-- The server was hosted using a [Heroku free Dyno](https://devcenter.heroku.com/articles/free-dyno-hours) and the globally hosted trie was stored in a [JSON](https://www.json.org/) file.
-
-- Every time an API request calls, the trie gets the root node from the [JSON](https://www.json.org/) file and updates/displays data accordingly.
-
-- The CLI Interacts with it by calling an [AJAX](<https://en.wikipedia.org/wiki/Ajax_(programming)>) Request with [Axios](https://www.npmjs.com/package/axios) to the RESTful [Node](http://www.node.com/) +[Express](https://expressjs.com/) which then returned JSON.
-  - The [JSON](https://www.json.org/) is then recieved by the request and it is console logged to the cli screen
-
-# Server REST Endpoints
-
-```bash
-#adds a word to the trie
-curl -X POST -d "specifiedWord=word" https://triechallenge.herokuapp.com/add
-
-#deletes a word from the trie
-curl -X POST -d "specifiedWord=word" https://triechallenge.herokuapp.com/delete
-
-#checks if a word is in the trie
-curl -X POST -d "specifiedWord=word" https://triechallenge.herokuapp.com/search
-
-#gets all the words in the trie starting with a prefix
-curl -X POST -d "specifiedWord=word" https://triechallenge.herokuapp.com/autocomplete
-
-#displays all the words in the trie and the trie structure in JSON
-curl -X GET https://triechallenge.herokuapp.com/display
-
-#resets the trie to have no words along with the json database file
-curl -X GET https://triechallenge.herokuapp.com/reset
+``` javascript
+function playgroundHelp() {
+    console.log("");
+    console.log("Commands are done by command_name for all commands");
+    console.log("All Possible Playground Commands: ");
+    console.log("exit                                 exits the DSACli");
+    console.log("back_home                            navigates back to the home cli")
+    console.log("stack                                navigates to the Stack Playground");
+    console.log("queue                                navigates to the Queue Playground");
+    console.log("binary_search_tree                   navigates to the Binary Search Tree Playground");
+    console.log("binary_heap                          navigates to the Binary Heap Playground");
+    console.log("trie                                 navigates to the Trie Playground");
+    console.log("");
+}
 ```
+Once navigating to a certain data structure, access all its commands by typing help again and choose a data structure by typing its name in the Command Line Interface and enter a command as instructed after.
+
+Typing an unstored data structure name creates it automatically for you.
+
+
+## Tech Stack
+
+### Client
+
+- The client is a Command Line Interface built with [Node](https://nodejs.org/en/) which is hosted on [NPM](https://www.npmjs.com/) and accessible via a NPM package. 
+
+- It uses [Prompts](https://www.npmjs.com/package/prompts) as the base to handle and parse user inputs and [Axios](https://www.npmjs.com/package/axios) to make HTTP requests to the Node server.
+
+- Users can currently store, modify, and view Stacks, Queues, Linked Lists, Heaps, and Tries client side.
+
+### Server
+- The server is built with [Node](https://nodejs.org/en/) and uses the [Express](https://expressjs.com/) framework to handle routes to create the API.
+
+- Authentication is done using [Firebase](https://firebase.google.com/) and storing all the various data structures and algorithms are done with [Firestore](https://firebase.google.com/docs/firestore).
+
+- The server is [Dockerized](https://www.docker.com/) and is deployed on a [Qovery](https://www.qovery.com/) instance.
+
+## Future Plans
+
+- ⬜️ Convert entire codebase to Typescript
+- ⬜️ Add sorts and searches along with arrays
+- ⬜️ Add "verbose" output explaining what the data structure operation is doing in detail
